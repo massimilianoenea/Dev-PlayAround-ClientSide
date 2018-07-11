@@ -1,0 +1,331 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400);
+body {
+    background-color:whitesmoke;
+    -webkit-font-smoothing: antialiased;
+    font: normal 14px Roboto,arial,sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.container {
+    padding: 20px;
+}
+
+.page-header{
+    background-color: #12436d;
+    width: 100%;
+    max-height: 150px;
+}
+
+.image-responsive {
+    width: auto;
+    max-height: 100px;
+    height: auto;
+}
+
+.thumb {
+    width: 24px;
+    height: 24px;
+    float: none;
+    position: relative;
+    top: 7px;
+}
+
+form .progress {
+    line-height: 15px;
+}
+
+.progress {
+    display: inline-block;
+    width: 100px;
+    border: 3px groove #CCC;
+}
+
+.progress div {
+    font-size: smaller;
+    background: orange;
+    width: 0;
+}
+#regForm {
+    background-color:white;
+    font-family: Raleway;
+    padding: 40px;
+    width: 70%;
+    min-width: 300px;
+    /*
+    margin: 100px auto;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-style: solid;
+    border-width: 5px;
+    border-color: #357ebd;
+    */
+    border-radius: 30px;
+    box-shadow:4px 5px 15px 5px #bfbfbf;
+    height: auto;
+}
+h1 {
+    text-align: center;
+    color: darkred;
+    padding-bottom: 5px;
+    border-bottom-style: solid;
+    border-bottom-color: white;
+}
+
+input {
+    border: none;
+    width: 75%;
+    padding: 10px;
+    float: left;
+    font-size: 16px;
+}
+
+/* Hide all steps by default: */
+.tab {
+    display: none;
+    margin: 10px;
+    color: maroon;
+}
+
+button {
+    background-color: #4CAF50;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 17px;
+    font-family: Raleway;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+#prevBtn {
+    background-color: #bbbbbb;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbbbbb;
+    border: none;
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+}
+
+.step.active {
+    opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+    background-color: #4CAF50;
+}
+
+h4 {
+    border:0 solid #fff;
+    border-bottom-width:1px;
+    padding-bottom:10px;
+    text-align: center;
+    color: #a00e6d;
+}
+.form-control {
+    border-radius: 10px;
+    height: 50px;
+}
+
+.ng-pristine.ng-invalid {
+    background-color: white;
+    color: black;
+    border-style: solid;
+    border-radius: 20px;
+    border-width: 3px;
+    border-color: #357ebd;
+    margin: 10px;
+}
+
+/* TAGGLE */
+.textarea {
+    width: 100%;
+    height: 300px;
+    border: 1px solid red;
+}
+
+.taggle_list {
+    background: whitesmoke;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.taggle_input {
+    border: none;
+    outline: none;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.taggle_list li {
+    display: inline-block;
+    white-space: nowrap;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.taggle_list .taggle {
+    margin-right: 8px;
+    background: #E2E1DF;
+    padding: 5px 10px;
+    border-radius: 3px;
+    position: relative;
+    cursor: pointer;
+    transition: all .3s;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+.taggle_list .taggle_hot {
+    background: #cac8c4;
+}
+
+.taggle_list .taggle .close {
+    font-size: 1.1rem;
+    position: absolute;
+    top: 0px;
+    right: 3px;
+    text-decoration: none;
+    padding: 0;
+    line-height: 0.5;
+    color: #ccc;
+    color: rgba(0, 0, 0, 0.2);
+    padding-bottom: 4px;
+    display: none;
+    border: 0;
+    background: none;
+    cursor: pointer;
+}
+
+.taggle_list .taggle:hover {
+    padding: 5px;
+    padding-right: 15px;
+    background: #ccc;
+    transition: all .3s;
+}
+
+.taggle_list .taggle:hover > .close {
+    display: block;
+}
+
+.taggle_list .taggle .close:hover {
+    color: #990033;
+}
+
+.taggle_placeholder {
+    color: #CCC;
+    top: 12px;
+    left: 8px;
+    transition: opacity, .25s;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.taggle_input {
+    padding: 8px;
+    padding-left: 0;
+    float: left;
+    margin-top: -5px;
+    background: none;
+    width: 100%;
+    max-width: 100%;
+}
+
+.ui-helper-hidden-accessible{
+    display:none;
+}
+
+.taggle_sizer {
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: -500px;
+    z-index: -1;
+    visibility: hidden;
+}
+
+/* AUTOCOMPLETE */
+
+.ui-autocomplete {
+    position: absolute;
+    top: 0;
+    left: 0; }
+
+.ui-menu {
+    list-style: none;
+    padding: 2px;
+    margin: 0;
+    display: block;
+    outline: none; }
+
+.ui-widget-content {
+    background: #b1b1b1;
+    color: #09436e;
+}
+
+.ui-menu .ui-menu-item {
+    margin: 0;
+    padding: 0;
+    width: 100%; }
+
+.ui-menu .ui-menu-item a {
+    text-decoration: none;
+    display: block;
+    padding: 2px .4em;
+    line-height: 1.5;
+    min-height: 0;
+    font-weight: normal;
+    color: white;
+    cursor: pointer; }
+.ui-menu .ui-menu-item a:hover {
+    color: #fff;
+    background: #990033; }
+
+
+/* AUTOCOMPLETE COD EXTRA */
+
+.autocomplete {
+    max-height: 200px;
+    overflow: scroll;
+    position: absolute;
+    top: 66px;
+    background: white;
+    width: 99.5%;
+    left: 0.25%;
+    z-index: 2; }
+
+.autocomplete ul li {
+    display: block;
+    padding: 6px 8px; }
+
+.autocomplete ul li.selected, .autocomplete ul li:hover {
+    background: #ff6633;
+    color: #fff;
+    cursor: pointer; }
+
+.ui-autocomplete {
+    max-height: 200px;
+    overflow: scroll;
+    width: 61.2% !important; }

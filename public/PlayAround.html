@@ -1,0 +1,192 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<title>PlayAround</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/public/image/Symbol playaround logo.png" type="image/png" />
+    <meta name="description" content="Tutta la musica che cerchi, a portata di CLICK!">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/public/angular-ui-carousel/dist/ui-carousel.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/playaround.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.10/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.10/angular-route.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.10/ngStorage.min.js"></script>
+    <script src="/public/angucomplete-alt-master/dist/angucomplete-alt.min.js"></script>
+    <script src="/public/angular-ui-carousel/dist/ui-carousel.min.js"></script>
+    <script src="/public/socket.io-client-master/dist/socket.io.js"></script>
+    <script src="/public/socket.io-stream.js"></script>
+    <script src="/public/angularFile/app.js"></script>
+    <script src="/public/angularFile/controller.js"></script>
+    <script src="/public/angularFile/service.js"></script>
+
+    </head>
+    <body ng-app="PlayAround" ng-controller="PlayAround">
+
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+        function activeItem(){
+            var element=document.getElementsByClassName("list");
+            element.classList.add("active");
+        }
+
+    </script>
+    <!--
+    <div class="header">
+      <h1>My Website</h1>
+      <p>A website created by me.</p>
+    </div>
+    -->
+
+    <div id="modalDevice" class="modalDev">
+        <!-- Modal content -->
+        <div class="modal-content-Dev">
+            <p>Seleziona il device da usare come riproduttore</p>
+            <div id="deviceSetting">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <!-- Quando sei in mobile view -->
+       <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="#!" ng-click="enablePlayerino()" onclick="closeNav()">Home</a>
+           <a href="#!libreria/playlist" ng-click="enablePlayerino()" onclick="closeNav()">La tua Libreria</a>
+           <a href="#!preferiti" ng-click="enablePlayerino()" onclick="closeNav()">Preferiti</a>
+           <a href="#!amici" ng-click="enablePlayerino()" onclick="closeNav()">I tuoi Amici</a>
+            <a href="#!mood" ng-click="enablePlayerino()" onclick="closeNav()">Genere & Mood</a>
+            <a href="#!piuAscoltati" ng-click="enablePlayerino()" onclick="closeNav()">I più Ascoltati</a>
+            <a href="#!sceltiPerTe" ng-click="enablePlayerino()" onclick="closeNav()">Scelti per Te</a>
+           <a href="#!" ng-click="enablePlayerino();deviceConnected()" onclick="closeNav()">I tuoi device</a>
+        </div>
+        <div  class="mobileHeader">
+            <img src="/image/Symbol_playaround_complete.png" style="width: 60%;float: right;display: inline;margin-right: 15%;">
+            <span class="button" style="font-size:30px;cursor:pointer;color: whitesmoke ;width:15%" onclick="openNav()">&#9776;</span>
+
+        </div>
+
+        <!-- Quando sei in desktop view -->
+        <div class="side">
+            <div>
+            <img src="/image/Symbol_playaround_complete.png" alt="logo" style="height: 60px; margin-right:10px;">
+            </div>
+                <div class="chip">
+          <img ng-src="{{Utente.immagine}}" alt="Avatar"/>
+            {{Utente.username}}
+          </div>
+
+          <div style="border-bottom-style: solid;border-bottom-color: whitesmoke;border-bottom-width: 1px;
+    border-top-style: solid;border-top-color: whitesmoke;border-top-width: 1px; padding-top: 15px; margin-top: 12px">
+              <ul>
+                  <li>
+                      <a href="#" ng-click="enablePlayerino()" class="list">Home</a>
+                  </li>
+                  <li>
+                      <a href="#!libreria/playlist" ng-click="enablePlayerino()" class="list">La tua libreria</a>
+                  </li>
+                  <li >
+                      <a href="#!preferiti" ng-click="enablePlayerino()" class="list">Preferiti</a>
+                  </li>
+                  <li>
+                      <a href="#!amici" ng-click="enablePlayerino()" class="list ">I tuoi Amici</a>
+                  </li>
+                  <li>
+                      <a href="#!mood" ng-click="enablePlayerino()" class="list">Genere & Mood</a>
+                  </li>
+                  <li>
+                      <a href="#!piuAscoltati" ng-click="enablePlayerino()" class="list ">I più ascoltati</a>
+                  </li>
+                  <li>
+                      <a href="#!sceltiPerTe" ng-click="enablePlayerino()" class="list ">Scelti per te</a>
+                  </li>
+                  <li>
+                      <a href="" ng-click="deviceConnected()" class="list">I tuoi device</a>
+                  </li>
+              </ul>
+          </div>
+            <br>
+            <div class="playerino" ng-hide="!getDisable()">
+                <audio id="audio" autoplay>
+                    <source src="" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                <a href="#!player" ng-click="disablePlayerino()">
+                    <i class="fa fa-expand"></i>
+                    <img ng-src="{{currentSongImage()}}" alt="PlayAround"/>
+                    <p>{{currentSongName()}}</p>
+                </a>
+                <div class="controllerMusic">
+                    <div class="time_slider">
+                        <progress id="progressBar" min='0' max='100' value='0'></progress>
+                        <span id = "musicTime" class="runing_time">00:00</span>
+                    </div>
+                    <i class="fa fa-fast-backward" aria-hidden="true" ng-click="prec()"></i>
+                    <i id = "playPause" class="fa fa-play" aria-hidden="true" ng-click="playPause()"></i>
+                    <i class="fa fa-fast-forward" aria-hidden="true" ng-click="succ()"></i>
+                    <i id="repeatLoop" class="fa fa-retweet" aria-hidden="true" ng-click="repeatSong()"></i>
+                </div>
+            </div>
+      </div>
+      <!-- sempre attiva, parte centrale-->
+        <div class="main" id="main" align="center">
+          <header ng-controller="searchCtrl">
+
+              <div
+                      angucomplete-alt  id="Search"
+                      placeholder="Cerca.. "
+                      pause="400"
+                      selected-object="reindirizza"
+                      remote-url="/require/search/"
+                      remote-url-response-formatter="searchResponseFormatter"
+                      title-field="val.type,val.response.nome"
+                      image-field="val.response.immagine"
+                      clear-selected="true"
+                      ng-hide="create">
+              </div>
+          </header>
+
+            <div ng-view="">
+            </div>
+        </div>
+
+        <!-- barra laterale destra in desktop-->
+      <div class="sidedx">
+          <div class="controller" ng-controller="amiciOnCtrl" align="center">
+          <a class="h3" href="#!amiciOn" ng-click="enablePlayerino()">Amici Online</a>
+              <div ng-repeat="user in getUsers() | limitTo: 5" class="container">
+                  <a href="#!utente/{{user.username}}">
+
+                    <img ng-src="{{user.img}}" alt="Avatar" style="width:90px">
+                      <p>{{user.username}}</p>
+                  </a>
+                      <marquee direction="left" scrollAmount=4 height="100" width="100%">
+                          {{user.canzone.titolo}}
+
+                      </marquee>
+
+                   
+
+
+            </div>
+          </div>
+        </div>
+    </div>
+    <!-- barra menu in basso in mobile-->
+    <div class="navbar">
+        <a href="#home" ng-click="enablePlayerino()" class="active">Home</a>
+        <a href="#!amiciOn" ng-click="enablePlayerino()">Amici Online</a>
+        <a href="#!player" ng-click="disablePlayerino()">Music Player</a>
+    </div>
+    </body>
+    </html>
