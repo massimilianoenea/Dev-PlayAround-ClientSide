@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login PlayAround</title>
-    <link rel="icon" href="/public/image/Symbol playaround logo.png" type="image/png" />
+    <link rel="icon" href="../resources/image/Symbol playaround logo.png" type="image/png" />
     <!-- Style -->
-    <link rel="stylesheet" type="text/css" href="public/css/multiStepForm.css">
+    <link rel="stylesheet" type="text/css" href="../resources/css/multiStepForm.css">
     <!-- AngularJs -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-    <script src="public/ng-file-upload-bower-10.1.8/ng-file-upload.js"></script>
-    <script src="public/ng-file-upload-bower-10.1.8/ng-file-upload-shim.js"></script>
+    <script src="../resources/ng-file-upload-bower-10.1.8/ng-file-upload.js"></script>
+    <script src="../resources/ng-file-upload-bower-10.1.8/ng-file-upload-shim.js"></script>
     <!--Pulling Awesome Font -->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
@@ -20,7 +20,7 @@
 <div data-ng-init="checkOn()">
     <div class="page-header">
         <div align="center">
-            <img src="/image/Symbol_playaround_complete.png" alt="logo PlayAround" class="image-responsive">
+            <img src="../resources/image/Symbol_playaround_complete.png" alt="logo PlayAround" class="image-responsive">
         </div>
     </div>
 
@@ -77,7 +77,7 @@
         <script src="public/js/jquery-ui.js"></script>
         <script src="public/js/rainbow-custom.min.js"></script>
         <script src="public/js/taggle.min.js"></script>
-    <script>
+        <script>
 
         var cantanti = new Taggle('cantanti',{
             onTagRemove: function(event, tag) {
@@ -238,7 +238,7 @@
     <script>
 
         var app = angular.module('PlayAround',['ngFileUpload']);
-        app.controller('multiFormCtrl', function($scope, $http,Upload, $timeout) {
+        app.controller('multiFormCtrl', function($scope, $http,Upload, $timeout,ipAddress) {
             $scope.checkOn = function(){
                 $http({
                     method : "POST",

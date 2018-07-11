@@ -1,6 +1,7 @@
 angular.module('PlayAround')
-    .factory('socket', function ($rootScope) {
-        var path = window.location.protocol+"//"+ window.location.host;
+    .factory('socket', function ($rootScope,ipAddress) {
+        //var path = window.location.protocol+"//"+ window.location.host;
+        var path = ipAddress;
         var socket = io.connect(path, {'forceNew': true});
     return {
         runSocket: function(){

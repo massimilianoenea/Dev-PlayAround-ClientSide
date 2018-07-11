@@ -1,4 +1,4 @@
-angular.module('PlayAround', ['ngRoute','ngStorage','angucomplete-alt','ui.carousel'])
+angular.module('PlayAround',['ngRoute','ngStorage','angucomplete-alt','ui.carousel'])
 
 
 .run(['Carousel', (Carousel) => {
