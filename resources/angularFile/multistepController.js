@@ -17,7 +17,7 @@ app.controller('multiFormCtrl', function($scope, $http,Upload, $timeout,ipAddres
         }).then(function mySuccess(response) {
             path = ipAddress;
         }, function myError(response) {
-            window.location.href = '/public/login.html';
+            window.location.href = './login.html';
         });
     };
 

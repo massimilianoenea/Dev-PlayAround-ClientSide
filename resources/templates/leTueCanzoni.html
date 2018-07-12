@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.10/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.10/angular-route.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/resources/css/template/leTueCanzoni.css">
+    <link rel="stylesheet" type="text/css" href="../resources/css/template/leTueCanzoni.css">
 </head>
 <body ng-app="PlayAround" ng-controller="libreriaCtrl">
 <div class="tab">
@@ -15,6 +15,42 @@
     <a href="#!libreria/ascoltatiRecente" class="tablinks">Ascoltati di Recente</a>
 </div>
 <h2>BRANI SALVATI</h2>
+<div align="center" style="margin-bottom: 2%;margin-top: -2%;">
+    <i class="fa fa-plus-square" aria-hidden="true" ng-click="showBox()"><span id="textBtn"> Elimina dai Preferiti</span></i>
+</div>
+
+
+<!-- The Modal -->
+<div id="myModal" class="modal" ng-show="visible">
+
+    <!-- Modal content -->
+    <div class="modal-content" >
+        <div class="modal-header">
+            <span class="close" ng-click="hideBox()">&times;</span>
+            <h2>Elimina Brano dai preferiti</h2>
+        </div>
+        <div class="modal-body" align="center">
+            <div class="row" style="background: white">
+                <ul style="margin: auto">
+                    <li class="deleteList" ng-repeat="brani in salvate" >
+
+                        <p style="" ng-click="deletePrefer(brani.codice)">{{brani.titolo}}</p>
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+
+
+        </div>
+
+        </form>
+    </div>
+
+</div>
 
 
 <div class="row_img">

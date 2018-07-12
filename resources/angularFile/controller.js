@@ -25,7 +25,7 @@ angular.module('PlayAround')
             $scope.getRepeatStyle();
             socket.emit('event', {username: $sessionStorage.UserLogged.username});
         }, function myError(response) {
-            window.location.href = '/public/login.html';
+            window.location.href = './login.html';
         });
     };
 /*
@@ -688,8 +688,30 @@ angular.module('PlayAround')
         };
 
     })
-    .controller('tueCanzoniCtrl', function ($scope, Saved){
+    .controller('tueCanzoniCtrl', function ($scope, Saved,$http,ipAddress){
         $scope.salvate=Saved;
+        $scope.visible=false;
+        $scope.showBox=function () {
+            $scope.visible=true;
+        };
+        $scope.hideBox=function () {
+            $scope.visible=false;
+        };
+        $scope.deletePrefer=function (codice) {
+            $scope.codice=codice;
+            var parameter = {codbrano:$scope.codice};
+            $http({
+                method: "POST",
+                url: ipAddress + "/require/removePreferito",
+                data: parameter,
+                withCredentials: true,
+                headers: {'Content-Type': 'application/json'}
+            }).then(function mySuccess(response){
+                window.location = "#!libreria/leTueCanzoni"
+            },function myError(response){
+
+            });
+        };
     })
     .controller('recentiCtrl', function ($scope, Recenti){
         $scope.recenti=Recenti;
@@ -863,6 +885,7 @@ angular.module('PlayAround')
     * Player musicale
     */
     .controller('playerCtrl', function($scope,$http,$sessionStorage,ipAddress){
+        $scope.notifica = false;
         PlayerProgressBar.addEventListener("click", seek);
 
         function seek(e) {
@@ -875,6 +898,7 @@ angular.module('PlayAround')
             }
         }
 
+
         $scope.salvaBrano=function (codice) {
             $scope.codice=codice;
             var parameter={codbrano:$scope.codice};
@@ -884,6 +908,8 @@ angular.module('PlayAround')
                 data: parameter,
                 withCredentials: true,
                 headers: { 'Content-Type': 'application/json' }
+            }).then(function mySuccess(response){
+                $scope.notifica=true;/*attivo la snackbar di notifica*/
             });
         }
     })
@@ -896,6 +922,10 @@ angular.module('PlayAround')
         $scope.brani=BraniAlbum;
         $scope.lista=ListaPlaylist;
         //$scope.altri=AltriAlbum;
+
+        $scope.notifica=false
+        $scope.notifica2=false;
+        $scope.nascondi=true;
 
         //gestisco la dropdown per le playlist
         $scope.showDrop=function (codice) {
@@ -910,6 +940,7 @@ angular.module('PlayAround')
         };
 
         $scope.aggiungi=function (nome,codice) {
+            $scope.notifica2=true;
             $scope.nome=nome;
             var parameter={nome_playlist:$scope.nome,codbrano:$scope.codice};
             $http({
@@ -918,6 +949,9 @@ angular.module('PlayAround')
                 data: parameter,
                 withCredentials: true,
                 headers: { 'Content-Type': 'application/json' }
+            }).then(function mySuccess($scope) {
+                $scope.codice=-1;//disattivo dropdown
+                $scope.notifica2=true; /*attivo la snackbar di notifica*/
             });
         };
 
@@ -929,6 +963,8 @@ angular.module('PlayAround')
                 data: parameter,
                 withCredentials: true,
                 headers: { 'Content-Type': 'application/json' }
+            }).then(function mySuccess(response) {
+                $scope.notifica=true;/*attivo la snackbar di notifica*/
             });
         }
 

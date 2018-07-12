@@ -45,7 +45,7 @@ h2{
     margin: -13px;
     padding: 5px;
 }
-#snackbar {
+.snackbar {
 
     min-width: 250px; /* Set a default minimum width */
     margin-left: -125px; /* Divide value of min-width by 2 */
@@ -59,6 +59,12 @@ h2{
     left: 50%; /* Center the snackbar */
     bottom: 30px; /* 30px from the bottom */
 }
+
+.snackbar:hover{
+    color:blue;
+    font-size: larger;
+}
+
 @media screen and (max-width: 900px){
     .listAlbum{
         width: 100%;

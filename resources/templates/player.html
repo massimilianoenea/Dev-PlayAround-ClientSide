@@ -6,14 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.10/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.10/angular-route.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/resources/css/template/player.css">
+    <link rel="stylesheet" type="text/css" href="../resources/css/template/player.css">
 </head>
 
 <body>
 
 <div class="row-player">
     <div class="bg-player">
-        <img src="/resources/image/sbarreColoro.jpeg" class="imgA">
+        <img src="../resources/image/sbarreColoro.jpeg" class="imgA">
         <div class="image-album">
             <img ng-src="{{currentSongImage()}}" style="width: 150px;height: 150px">
 
@@ -42,7 +42,7 @@
         </li>
     </ul>
 </div>
-
+    <div class="snackbar" ng-show="notifica"> <a href="#!libreria\leTueCanzoni"> Aggiunto alle tue Canzoni</a></div>
 </div>
 
 </body>

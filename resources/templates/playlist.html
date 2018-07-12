@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.10/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.10/angular-route.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/resources/css/template/playlist.css">
+    <link rel="stylesheet" type="text/css" href="../resources/css/template/playlist.css">
 </head>
 <body ng-app="PlayAround" ng-controller="libreriaCtrl as ctrl">
 
@@ -76,7 +76,7 @@
     <div class="column_img" ng-repeat="list in playlist">
         <a href="#!libreria/playlist/{{list.codice}}">
             <div class="container_img">
-                <img id="image" src="/image/playlist/" ng class="image">
+                <img id="image" src="/image/playlist/" class="image">
                 <div class="overlay">{{list.nome}}</div>
             </div>
         </a>

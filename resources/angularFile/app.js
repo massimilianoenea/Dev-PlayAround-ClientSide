@@ -26,7 +26,7 @@ angular.module('PlayAround',['ngRoute','ngStorage','angucomplete-alt','ui.carous
     
     $routeProvider
         .when("/", {
-            templateUrl: "/resources/templates/home.html",
+            templateUrl: "../resources/templates/home.html",
             controller:"homeCtrl",
             resolve:{
                     Giornaliera: function ($http,ipAddress){
@@ -75,11 +75,11 @@ angular.module('PlayAround',['ngRoute','ngStorage','angucomplete-alt','ui.carous
             }
         })
         .when("/amiciOn",{
-            templateUrl:"/resources/templates/amiciOn.html",
+            templateUrl:"../resources/templates/amiciOn.html",
             controller: "amiciOnCtrl"
         })
         .when("/utente/:username",{
-            templateUrl:"/resources/templates/utente.html",
+            templateUrl:"../resources/templates/utente.html",
             controller:"utenteCtrl",
             resolve:  {
                 User: function($http, $route,ipAddress){
@@ -128,7 +128,7 @@ angular.module('PlayAround',['ngRoute','ngStorage','angucomplete-alt','ui.carous
 
         })
         .when("/libreria/playlist",{
-            templateUrl:"/resources/templates/playlist.html",
+            templateUrl:"../resources/templates/playlist.html",
             controller:"playlistCtrl",
             resolve: {
                 PersonalPlaylist: function ($http,ipAddress) {
@@ -148,7 +148,7 @@ angular.module('PlayAround',['ngRoute','ngStorage','angucomplete-alt','ui.carous
             }
         })
         .when("/libreria/leTueCanzoni", {
-            templateUrl: "/resources/templates/leTueCanzoni.html",
+            templateUrl: "../resources/templates/leTueCanzoni.html",
             controller: "tueCanzoniCtrl",
             resolve: {
                 Saved: function ($http,ipAddress) {
@@ -167,7 +167,7 @@ angular.module('PlayAround',['ngRoute','ngStorage','angucomplete-alt','ui.carous
             }
         })
         .when("/libreria/ascoltatiRecente", {
-            templateUrl: "/resources/templates/ascoltatiRecente.html",
+            templateUrl: "../resources/templates/ascoltatiRecente.html",
             controller: "recentiCtrl",
             resolve: {
                 Recenti: function ($http,ipAddress) {
@@ -186,7 +186,7 @@ angular.module('PlayAround',['ngRoute','ngStorage','angucomplete-alt','ui.carous
             }
         })
         .when("/libreria/playlist/:codice",{
-            templateUrl: "/resources/templates/playlist_Ut.html",
+            templateUrl: "../resources/templates/playlist_Ut.html",
             controller:"playlistUtCtrl",
             resolve:{
                 Playlist: function ($http, $route,ipAddress) {
@@ -218,7 +218,7 @@ angular.module('PlayAround',['ngRoute','ngStorage','angucomplete-alt','ui.carous
             }
         })
         .when("/playlist_def/:codice",{
-            templateUrl: "/resources/templates/playlist_Def.html",
+            templateUrl: "../resources/templates/playlist_Def.html",
             controller:"playlistDefCtrl",
             resolve:{
                 Playlist: function ($http, $route,ipAddress) {
@@ -238,7 +238,7 @@ angular.module('PlayAround',['ngRoute','ngStorage','angucomplete-alt','ui.carous
         })
 
         .when("/artista/:id",{
-            templateUrl: "/resources/templates/artista.html",
+            templateUrl: "../resources/templates/artista.html",
             controller: "artistaCtrl",
             resolve:  {
                 Artista: function($http, $route,ipAddress){
@@ -284,13 +284,13 @@ angular.module('PlayAround',['ngRoute','ngStorage','angucomplete-alt','ui.carous
         })
 
         .when("/player",{
-            templateUrl:"/resources/templates/player.html",
+            templateUrl:"../resources/templates/player.html",
             controller:"playerCtrl"
         })
 
 
         .when("/preferiti",{
-            templateUrl: "/resources/templates/artisti.html",
+            templateUrl: "../resources/templates/artisti.html",
             controller: "artistiPrefCtrl",
             resolve: {
                 ArtistiPreferiti: function ($http,ipAddress) {
@@ -310,7 +310,7 @@ angular.module('PlayAround',['ngRoute','ngStorage','angucomplete-alt','ui.carous
 
         })
         .when("/amici",{
-            templateUrl: "/resources/templates/amici.html",
+            templateUrl: "../resources/templates/amici.html",
             controller: "amiciCtrl",
             resolve: {
                 Amici: function ($http,ipAddress) {
@@ -334,7 +334,7 @@ angular.module('PlayAround',['ngRoute','ngStorage','angucomplete-alt','ui.carous
         })
 
         .when("/sceltiPerTe",{
-                templateUrl:"/resources/templates/sceltiPerTe.html",
+                templateUrl:"../resources/templates/sceltiPerTe.html",
                 controller: "sceltiCtrl",
                 resolve: {
                     Scelti: function ($http,ipAddress) {
@@ -354,7 +354,7 @@ angular.module('PlayAround',['ngRoute','ngStorage','angucomplete-alt','ui.carous
 
         })
         .when("/piuAscoltati",{
-                templateUrl:"/resources/templates/piuAscoltati.html",
+                templateUrl:"../resources/templates/piuAscoltati.html",
                 controller:"piuAscoltatiCtrl",
                 resolve: {
                     PiuAscoltate: function ($http,ipAddress) {
@@ -374,7 +374,7 @@ angular.module('PlayAround',['ngRoute','ngStorage','angucomplete-alt','ui.carous
 
         })
         .when("/mood",{
-                templateUrl:"/resources/templates/mood.html",
+                templateUrl:"../resources/templates/mood.html",
                 controller:"moodCtrl",
                 resolve: {
                     Mood: function ($http,ipAddress) {
@@ -414,7 +414,7 @@ angular.module('PlayAround',['ngRoute','ngStorage','angucomplete-alt','ui.carous
         })
 
         .when("/album/:codAlbum",{
-                templateUrl: "/resources/templates/album.html",
+                templateUrl: "../resources/templates/album.html",
                 controller: "albumCtrl",
                 resolve:  {
                     Album: function($http, $route,ipAddress){
@@ -470,7 +470,7 @@ angular.module('PlayAround',['ngRoute','ngStorage','angucomplete-alt','ui.carous
 
         })
         .otherwise({
-            template: "/resources/templates/home.html",
+            template: "../resources/templates/home.html",
             controller:"homeCtrl",
             resolve:{
                 Giornaliera: function ($http,ipAddress){
