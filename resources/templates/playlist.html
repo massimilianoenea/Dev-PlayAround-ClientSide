@@ -44,16 +44,16 @@
                 <span ng-show="myPlaylist.namePlaylist.$invalid" style="color: red">Il nome deve contenere almeno 3 caratteri</span>
                     <p ng-show="message" style="color: red;" ng-bind="error.text"></p>
 
-                <div
-                    angucomplete-alt  id="Song"
-                                      placeholder="Search Song"
-                                      pause="400"
-                                      selected-object="addSong"
-                                      remote-url="$scope.ipAddress/require/brano_titolo/"
-                                      title-field="titolo,artista,anno"
-                                      image-field="immagine"
-                                    clear-selected="true"
-                ng-hide="create">
+                <div angucomplete-alt  
+                        id="Song"
+                        placeholder="Search Song"
+                        pause="400"
+                        selected-object="addSong"
+                        remote-api-handler="searchBranoAPI"
+                        title-field="titolo,artista,anno"
+                        image-field="immagine"
+                        clear-selected="true"
+                        ng-hide="create">
                 </div>
                      <p ng-hide="create">Hai aggiunto: {{nomeBrano}}</p>
                 </form>

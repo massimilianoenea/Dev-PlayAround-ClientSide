@@ -588,6 +588,15 @@ angular.module('PlayAround')
             $scope.visible=false;
         };
 
+        $scope.searchBranoAPI = function(userInputString,timeoutPromise){
+            return $http({
+                method: "GET",
+                url:ipAddress+'/require/brano_titolo/' + userInputString,
+                withCredentials: true,
+                timeout:timeoutPromise
+                });
+        }
+
        $scope.newPlaylist=function () {
 
            var parameter={nome_playlist:$scope.namePlaylist};
@@ -636,6 +645,15 @@ angular.module('PlayAround')
         $scope.hideBox=function () {
             $scope.visible=false;
         };
+
+        $scope.searchBranoTitoloAPI = function(userInputString,timeoutPromise){
+            return $http({
+                method: "GET",
+                url:ipAddress+'/require/brano_titolo/' + userInputString,
+                withCredentials: true,
+                timeout:timeoutPromise
+                });
+        }
 
         $scope.delete=function () {
             var parameter = {nome_playlist:NomePlaylist.nome};
@@ -785,7 +803,8 @@ angular.module('PlayAround')
         return $http({
             method: "GET",
             url:ipAddress+'/require/search/' + userInputString,
-            withCredentials: true
+            withCredentials: true,
+            timeout:timeoutPromise
             });
     }
 
