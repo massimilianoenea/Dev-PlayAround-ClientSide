@@ -25,45 +25,8 @@ angular.module('PlayAround')
             $scope.getRepeatStyle();
             socket.emit('event', {username: $sessionStorage.UserLogged.username});
         }, function myError(response) {
-            window.location.replace('./login.html');
+            window.location.href = '/public/login.html';
         });
-    };
-
-    /**
-     *
-     * Funzione per formattare il return della search
-     *
-     */
-
-    $scope.searchResponseFormatter=function(response){
-        var data = [];
-        if(response.length>0){
-            angular.forEach(response,function(value,key){
-                angular.forEach(value,function(subValue,subKey){
-                    angular.forEach(subValue,function(val,chiave){
-                        switch (subKey) {
-                            case "brani":
-                                data.push({val:{type:"Brano: ",response:{nome:val.titolo + " "+ val.anno,codice:val.codice,immagine:val.immagine},original:val}});
-                                break;
-                            case "artisti":
-                                data.push({val:{type:"Artista: ",response:{nome:val.nome,codice:val.codice,immagine:val.immagine},original:val}});
-                                break;
-                            case "album":
-                                data.push({val:{type:"Album: ",response:{nome:val.titolo + " "+ val.anno,codice:val.codice,immagine:val.immagine},original:val}});
-                                break;
-                            case "utenti":
-                                data.push({val:{type:"Utente: ",response:{nome:val.username,codice:val.username,immagine:ipAddress+"/image/profile/"+val.username+".png"},original:val}});
-                                break;
-                            default:
-                                data.length = 0;
-                        }
-                    });
-                });
-            });
-            return data;
-        }else{
-            return data;
-        }
     };
 /*
     $scope.$on('$viewContentLoaded', function(event) {
@@ -222,7 +185,7 @@ angular.module('PlayAround')
         var parameter={codbrano:codbrano};
         $http({
             method:"POST",
-            url : '/require/setBranoAscoltato',
+            url : ipAddress+'/require/setBranoAscoltato',
             data: parameter,
             withCredentials: true,
             headers: { 'Content-Type': 'application/json' }
@@ -524,7 +487,7 @@ angular.module('PlayAround')
 
 
 
-.controller('amiciOnCtrl', function ($scope, $sessionStorage) {
+.controller('amiciOnCtrl', function ($scope, $sessionStorage,ipAddress) {
     var socket = $sessionStorage.socket;
 
  socket.on('message',function (data) {
@@ -549,7 +512,9 @@ angular.module('PlayAround')
         return [];
     };
 })
-    .controller('utenteCtrl', function($scope,$http,User,Ascoltati,Seguiti,$sessionStorage) {
+
+
+    .controller('utenteCtrl', function($scope,$http,User,Ascoltati,Seguiti,$sessionStorage,ipAddress) {
         $scope.utente=User;
         $scope.ascoltati=Ascoltati;
         $scope.seguiti=Seguiti;
@@ -560,7 +525,7 @@ angular.module('PlayAround')
         $scope.addFriend = function () {
             $http({
                 method : "POST",
-                url : 'require/add_amico',
+                url : ipAddress+'require/add_amico',
                 data: {username:User.username},
                 withCredentials: true,
                 headers: { 'Content-Type': 'application/json' }
@@ -574,7 +539,7 @@ angular.module('PlayAround')
         $scope.deleteFriend = function () {
             $http({
                 method : "POST",
-                url : 'require/delete_amico',
+                url : ipAddress+'require/delete_amico',
                 data: {username:User.username},
                 withCredentials: true,
                 headers: { 'Content-Type': 'application/json' }
@@ -595,7 +560,7 @@ angular.module('PlayAround')
 
         $http({
             method: "GET",
-            url: "require/ascoltati_recente_utente/" + User.username
+            url: ipAddress+"require/ascoltati_recente_utente/" + User.username
         })
             .then(function mySuccess(response) {
                 recently.push.apply(response);
@@ -603,11 +568,14 @@ angular.module('PlayAround')
 
 
     })
+
     /**
+     *
      * Sezione Libreria
+     *  
      */
 
-    .controller('playlistCtrl', function($scope, PersonalPlaylist, $http){
+    .controller('playlistCtrl', function($scope, PersonalPlaylist, $http,ipAddress){
         var nomePlaylist = "";
         $scope.playlist=PersonalPlaylist;
         $scope.visible=false;
@@ -625,13 +593,13 @@ angular.module('PlayAround')
            var parameter={nome_playlist:$scope.namePlaylist};
            $http({
                method:"POST",
-               url : '/require/nuova_playlist',
+               url : ip.Address+'/require/nuova_playlist',
                data: parameter,
                withCredentials: true,
                headers: { 'Content-Type': 'application/json' }
            }).then(function mySuccess(response){
                nomePlaylist = $scope.namePlaylist;//questo la passo sotto per aggiungere i brani
-               $scope.playlist.push({codice:response.data.codice, immagine: "/image/playlist"+response.data.codice+".png", nome: response.data.nome});
+               $scope.playlist.push({codice:response.data.codice, immagine:"/image/playlist"+response.data.codice+".png", nome: response.data.nome});
                $scope.create=false;
                $scope.message=false;
                $scope.apply();
@@ -644,7 +612,7 @@ angular.module('PlayAround')
            var parameter = {codbrano:selected.originalObject.codice,nome_playlist:nomePlaylist};
            $http({
                method:"POST",
-               url : '/require/add_song',
+               url : ipAddress+'/require/add_song',
                data: parameter,
                withCredentials: true,
                headers: { 'Content-Type': 'application/json' }
@@ -656,7 +624,7 @@ angular.module('PlayAround')
     /**
      * vista playlist personale
      */
-    .controller('playlistUtCtrl', function ($scope, Playlist, $http,NomePlaylist) {
+    .controller('playlistUtCtrl', function ($scope, Playlist, $http,NomePlaylist,ipAddress) {
         $scope.playlistUt=Playlist;
         $scope.nomePlay=NomePlaylist.nome;
         $scope.codPlay = NomePlaylist.codice;
@@ -673,7 +641,7 @@ angular.module('PlayAround')
             var parameter = {nome_playlist:NomePlaylist.nome};
             $http({
                 method: "POST",
-                url: "/require/delete_playlist",
+                url:ipAddress+ "/require/delete_playlist",
                 data: parameter,
                 withCredentials: true,
                 headers: {'Content-Type': 'application/json'}
@@ -687,7 +655,7 @@ angular.module('PlayAround')
             var parameter = {codbrano:selected.originalObject.codice,nome_playlist:NomePlaylist.nome};
             $http({
                 method:"POST",
-                url : '/require/add_song',
+                url : ipAddress+'/require/add_song',
                 data: parameter,
                 withCredentials: true,
                 headers: { 'Content-Type': 'application/json' }
@@ -717,7 +685,7 @@ angular.module('PlayAround')
     /**
      * sezione Amici
      */
-    .controller('amiciCtrl', function ($scope, Amici) {
+    .controller('amiciCtrl', function ($scope, Amici,ipAddress) {
         $scope.amici=Amici;
     })
 
@@ -725,7 +693,7 @@ angular.module('PlayAround')
      * pagina Artista
      */
 
-    .controller('artistaCtrl', function ($scope, $http,Artista, AlbumArtista){
+    .controller('artistaCtrl', function ($scope, $http,Artista, AlbumArtista,ipAddress){
         $scope.artista=Artista;
         $scope.Album=AlbumArtista;
         $scope.isFollowed=Artista.followed;
@@ -733,7 +701,7 @@ angular.module('PlayAround')
         $scope.addArtista = function () {
             $http({
                 method : "POST",
-                url : 'require/follow_artista',
+                url : ipAddress+'require/follow_artista',
                 data: {codartista:Artista.codice},
                 withCredentials: true,
                 headers: { 'Content-Type': 'application/json' }
@@ -746,7 +714,7 @@ angular.module('PlayAround')
         $scope.deleteArtista = function () {
             $http({
                 method : "POST",
-                url : 'require/unfollow_artista',
+                url : ipAddress+'require/unfollow_artista',
                 data: {codartista:Artista.codice},
                 withCredentials: true,
                 headers: { 'Content-Type': 'application/json' }
@@ -799,14 +767,61 @@ angular.module('PlayAround')
 
         var slides = [];
         for (playlist in Giornaliera){
-            slides.push({nome:Giornaliera[playlist].nome,immagine:ipAddress+Giornaliera[playlist].immagine,codice:Giornaliera[playlist].codice});
+            slides.push({nome:Giornaliera[playlist].nome,immagine:Giornaliera[playlist].immagine,codice:Giornaliera[playlist].codice});
         }
         $scope.slides = slides;
     })
     /**
      * Search bar
      */
-    .controller('searchCtrl', function($scope){
+    .controller('searchCtrl', function($scope,$http,ipAddress){
+    /**
+     *
+     * Funzioni per la search
+     *
+     */
+
+    $scope.searchAPI = function(userInputString,timeoutPromise){
+        return $http({
+            method: "GET",
+            url:ipAddress+'/require/search/' + userInputString,
+            withCredentials: true
+            });
+    }
+
+
+    $scope.searchResponseFormatter=function(response){
+        var data = [];
+        if(response.length>0){
+            angular.forEach(response,function(value,key){
+                angular.forEach(value,function(subValue,subKey){
+                    angular.forEach(subValue,function(val,chiave){
+                        switch (subKey) {
+                            case "brani":
+                                data.push({val:{type:"Brano: ",response:{nome:val.titolo + " "+ val.anno,codice:val.codice,immagine:val.immagine},original:val}});
+                                break;
+                            case "artisti":
+                                data.push({val:{type:"Artista: ",response:{nome:val.nome,codice:val.codice,immagine:val.immagine},original:val}});
+                                break;
+                            case "album":
+                                data.push({val:{type:"Album: ",response:{nome:val.titolo + " "+ val.anno,codice:val.codice,immagine:val.immagine},original:val}});
+                                break;
+                            case "utenti":
+                                data.push({val:{type:"Utente: ",response:{nome:val.username,codice:val.username,immagine:ipAddress+"/image/profile/"+val.username+".png"},original:val}});
+                                break;
+                            default:
+                                data.length = 0;
+                        }
+                    });
+                });
+            });
+            return data;
+        }else{
+            return data;
+        }
+    };
+
+
         $scope.reindirizza=function(selected){
             if(selected.originalObject.val.type==='Brano: ') {
                 var listOfSong = [];
@@ -823,12 +838,12 @@ angular.module('PlayAround')
                 window.location="#!utente/"+selected.originalObject.val.original.username;
             }
         };
-
-        /**
-         * Player musicale
-         */
     })
-    .controller('playerCtrl', function($scope,$http,$sessionStorage){
+
+    /**
+    * Player musicale
+    */
+    .controller('playerCtrl', function($scope,$http,$sessionStorage,ipAddress){
         PlayerProgressBar.addEventListener("click", seek);
 
         function seek(e) {
@@ -846,7 +861,7 @@ angular.module('PlayAround')
             var parameter={codbrano:$scope.codice};
             $http({
                 method:"POST",
-                url : '/require/setPreferito',
+                url : ipAddress+'/require/setPreferito',
                 data: parameter,
                 withCredentials: true,
                 headers: { 'Content-Type': 'application/json' }
@@ -856,7 +871,8 @@ angular.module('PlayAround')
     /**
      * Sezione album
      */
-    .controller('albumCtrl', function($scope,$http,Album, BraniAlbum, ListaPlaylist){
+    .controller('albumCtrl', function($scope,$http,Album, BraniAlbum, ListaPlaylist,ipAddress){
+       
         $scope.album=Album;
         $scope.brani=BraniAlbum;
         $scope.lista=ListaPlaylist;
@@ -865,7 +881,7 @@ angular.module('PlayAround')
         //gestisco la dropdown per le playlist
         $scope.showDrop=function (codice) {
             if($scope.codice!==codice){
-                $scope.codice=codice
+                $scope.codice=codice;
             }else{
                 $scope.codice=-1;
             }
@@ -879,7 +895,7 @@ angular.module('PlayAround')
             var parameter={nome_playlist:$scope.nome,codbrano:$scope.codice};
             $http({
                 method:"POST",
-                url : '/require/add_song',
+                url : ipAddress+'/require/add_song',
                 data: parameter,
                 withCredentials: true,
                 headers: { 'Content-Type': 'application/json' }
@@ -890,7 +906,7 @@ angular.module('PlayAround')
             var parameter={codbrano:codice};
             $http({
                 method:"POST",
-                url : '/require/setPreferito',
+                url : ipAddress+'/require/setPreferito',
                 data: parameter,
                 withCredentials: true,
                 headers: { 'Content-Type': 'application/json' }

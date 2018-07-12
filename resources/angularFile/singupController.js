@@ -9,7 +9,7 @@ var app = angular.module('PlayAround', ['PlayAroundConf']);
     app.controller('registration', function($scope, $http,ipAddress) {
 
         $scope.try_signup = function(){
-            var parameter = {email:$scope.email,password:$scope.password,username:$scope.username};
+            var parameter = {user:{email:$scope.email,password:$scope.password,username:$scope.username},host:ipAddress};
             $http({
                 method : "POST",
                 url : ipAddress+'/playaround/singup',

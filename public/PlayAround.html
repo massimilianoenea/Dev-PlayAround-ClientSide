@@ -5,24 +5,25 @@
 <title>PlayAround</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="../resources/image/Symbol playaround logo.png" type="image/png" />
+    <link rel="icon" href="/resources/image/Symbol playaround logo.png" type="image/png" />
     <meta name="description" content="Tutta la musica che cerchi, a portata di CLICK!">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../resources/angular-ui-carousel/dist/ui-carousel.min.css">
-    <link rel="stylesheet" type="text/css" href="../resources/css/playaround.css">
+    <link rel="stylesheet" type="text/css" href="/resources/angular-ui-carousel/dist/ui-carousel.min.css">
+    <link rel="stylesheet" type="text/css" href="/resources/css/playaround.css">
+    <link rel="stylesheet" type="text/css" href="/resources/angucomplete-alt-master/angucomplete-alt.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.10/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.10/angular-route.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.10/ngStorage.min.js"></script>
-    <script src="../resources/angucomplete-alt-master/dist/angucomplete-alt.min.js"></script>
-    <script src="../resources/angular-ui-carousel/dist/ui-carousel.min.js"></script>
-    <script src="../resources/socket.io-client-master/dist/socket.io.js"></script>
-    <script src="../resources/socket.io-stream.js"></script>
-    <script src="../resources/angularFile/constant.js"></script>
-    <script src="../resources/angularFile/app.js"></script>
-    <script src="../resources/angularFile/service.js"></script>
-    <script src="../resources/angularFile/controller.js"></script>
+    <script src="/resources/angucomplete-alt-master/dist/angucomplete-alt.min.js"></script>
+    <script src="/resources/angular-ui-carousel/dist/ui-carousel.min.js"></script>
+    <script src="/resources/socket.io-client-master/dist/socket.io.js"></script>
+    <script src="/resources/socket.io-stream.js"></script>
+    <script src="/resources/angularFile/constant.js"></script>
+    <script src="/resources/angularFile/app.js"></script>
+    <script src="/resources/angularFile/service.js"></script>
+    <script src="/resources/angularFile/controller.js"></script>
     </head>
 
     <body ng-app="PlayAround" ng-controller="PlayAround">
@@ -142,18 +143,17 @@
       <!-- sempre attiva, parte centrale-->
         <div class="main" id="main" align="center">
           <header ng-controller="searchCtrl">
-
-              <div
-                      angucomplete-alt  id="Search"
-                      placeholder="Cerca.. "
-                      pause="400"
-                      selected-object="reindirizza"
-                      remote-url="/require/search/"
-                      remote-url-response-formatter="searchResponseFormatter"
-                      title-field="val.type,val.response.nome"
-                      image-field="val.response.immagine"
-                      clear-selected="true"
-                      ng-hide="create">
+              <div angucomplete-alt  
+                    id="Search"
+                    placeholder="Cerca.. "
+                    pause="400"
+                    selected-object="reindirizza"
+                    remote-api-handler="searchAPI"
+                    remote-url-response-formatter="searchResponseFormatter"
+                    title-field="val.type,val.response.nome"
+                    image-field="val.response.immagine"
+                    clear-selected="true"
+                    ng-hide="create">
               </div>
           </header>
 

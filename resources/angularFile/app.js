@@ -31,12 +31,23 @@ angular.module('PlayAround',['ngRoute','ngStorage','angucomplete-alt','ui.carous
             resolve:{
                     Giornaliera: function ($http,ipAddress){
                         var data = new Date();
-                        return $http.get(ipAddress+'/require/playlist_giornaliera/'+ data)
-                            .then(function(response){
+
+                        return $http({
+                            method: "GET",
+                            url: ipAddress+'/require/playlist_giornaliera/'+ data,
+                            withCredentials: true
+                            }).then(function (response){
+                                for(playlist in response.data){
+                                    response.data[playlist].immagine = ipAddress+response.data[playlist].immagine;
+                                }
                                 return response.data;
-                            })
+                            },function myError(response){
+                                return[];
+                            });
+
                     },
                     Recently: function ($http,ipAddress) {
+                        
                         return $http({
                             method: "GET",
                             url: ipAddress+'/require/ascoltati_recente',
@@ -46,8 +57,10 @@ angular.module('PlayAround',['ngRoute','ngStorage','angucomplete-alt','ui.carous
                             },function myError(response){
                                 return[];
                             });
+
                     },
-                    AmiciSong: function ($http,ipAddress) {  
+                    AmiciSong: function ($http,ipAddress) { 
+
                         return $http({
                             method: "GET",
                             url: ipAddress+'/require/ascoltano_amici',
@@ -57,6 +70,7 @@ angular.module('PlayAround',['ngRoute','ngStorage','angucomplete-alt','ui.carous
                             },function myError(response){
                                 return[];
                             });
+
                     }
             }
         })
@@ -68,23 +82,45 @@ angular.module('PlayAround',['ngRoute','ngStorage','angucomplete-alt','ui.carous
             templateUrl:"/resources/templates/utente.html",
             controller:"utenteCtrl",
             resolve:  {
-                User: function($http, $route){
-                    return $http.get(ipAddress+'require/utente/' + $route.current.params.username)
-                        .then(function(response){
+                User: function($http, $route,ipAddress){
+
+                    return $http({
+                        method: "GET",
+                        url:ipAddress+'require/utente/' + $route.current.params.username,
+                        withCredentials: true
+                        }).then(function (response){
+                            response.data.immagine = ipAddress+response.data.immagine;
                             return response.data;
-                        })
+                        },function myError(response){
+                            return[];
+                        });
+
                 },
-                Ascoltati:function($http, $route){
-                    return $http.get(ipAddress+'require/ascoltati_recente_utente/'+ $route.current.params.username)
-                        .then(function(response){
+                Ascoltati:function($http, $route,ipAddress){
+
+                    return $http({
+                        method: "GET",
+                        url: ipAddress+'require/ascoltati_recente_utente/'+ $route.current.params.username,
+                        withCredentials: true
+                        }).then(function (response){
                             return response.data;
-                        })
+                        },function myError(response){
+                            return[];
+                        });
+
                 },
-                Seguiti:function($http, $route){
-                    return $http.get(ipAddress+'require/artisti_seguiti/'+ $route.current.params.username)
-                        .then(function(response){
+                Seguiti:function($http, $route,ipAddress){
+
+                    return $http({
+                        method: "GET",
+                        url: ipAddress+'require/artisti_seguiti/'+ $route.current.params.username,
+                        withCredentials: true
+                        }).then(function (response){
                             return response.data;
-                        })
+                        },function myError(response){
+                            return[];
+                        });
+
                 }
 
 
@@ -95,11 +131,19 @@ angular.module('PlayAround',['ngRoute','ngStorage','angucomplete-alt','ui.carous
             templateUrl:"/resources/templates/playlist.html",
             controller:"playlistCtrl",
             resolve: {
-                PersonalPlaylist: function ($http) {
-                    return $http.get(ipAddress+'/require/le_tue_playlist')
-                        .then(function (response) {
+                PersonalPlaylist: function ($http,ipAddress) {
+
+                    return $http({
+                        method: "GET",
+                        url: ipAddress+'/require/le_tue_playlist',
+                        withCredentials: true
+                        }).then(function (response){
+                            response.data.immagine = ipAddress + response.data.immagine;
                             return response.data;
+                        },function myError(response){
+                            return[];
                         });
+
                 }
             }
         })
@@ -107,11 +151,18 @@ angular.module('PlayAround',['ngRoute','ngStorage','angucomplete-alt','ui.carous
             templateUrl: "/resources/templates/leTueCanzoni.html",
             controller: "tueCanzoniCtrl",
             resolve: {
-                Saved: function ($http) {
-                    return $http.get(ipAddress+'/require/canzoni_salvate')
-                        .then(function (response) {
+                Saved: function ($http,ipAddress) {
+
+                    return $http({
+                        method: "GET",
+                        url: ipAddress+'/require/canzoni_salvate',
+                        withCredentials: true
+                        }).then(function (response){
                             return response.data;
+                        },function myError(response){
+                            return[];
                         });
+
                 }
             }
         })
@@ -119,11 +170,18 @@ angular.module('PlayAround',['ngRoute','ngStorage','angucomplete-alt','ui.carous
             templateUrl: "/resources/templates/ascoltatiRecente.html",
             controller: "recentiCtrl",
             resolve: {
-                Recenti: function ($http) {
-                    return $http.get(ipAddress+'/require/ascoltate_recente')
-                        .then(function (response) {
+                Recenti: function ($http,ipAddress) {
+
+                    return $http({
+                        method: "GET",
+                        url: ipAddress+'/require/ascoltate_recente',
+                        withCredentials: true
+                        }).then(function (response){
                             return response.data;
+                        },function myError(response){
+                            return[];
                         });
+
                 }
             }
         })
@@ -131,18 +189,31 @@ angular.module('PlayAround',['ngRoute','ngStorage','angucomplete-alt','ui.carous
             templateUrl: "/resources/templates/playlist_Ut.html",
             controller:"playlistUtCtrl",
             resolve:{
-                Playlist: function ($http, $route) {
-                    return $http.get(ipAddress+"/require/get_brani_playlist/" + $route.current.params.codice)
-                        .then(function (response) {
-                            //return JSON.stringify({nome:$scope.nomePlaylist,response:response.data});
+                Playlist: function ($http, $route,ipAddress) {
+
+                    return $http({
+                        method: "GET",
+                        url: ipAddress+"/require/get_brani_playlist/" + $route.current.params.codice,
+                        withCredentials: true
+                        }).then(function (response){
                             return response.data;
-                        })
-                },
-                NomePlaylist: function ($http, $route) {
-                    return $http.get(ipAddress+"/require/nome_playlist/"+ $route.current.params.codice)
-                        .then(function(response){
-                            return {nome:response.data.nome,codice:$route.current.params.codice};
+                        },function myError(response){
+                            return[];
                         });
+
+                },
+                NomePlaylist: function ($http, $route,ipAddress) {
+
+                    return $http({
+                        method: "GET",
+                        url: ipAddress+"/require/nome_playlist/"+ $route.current.params.codice,
+                        withCredentials: true
+                        }).then(function (response){
+                            return response.data;
+                        },function myError(response){
+                            return[];
+                        });
+
                 }
             }
         })
@@ -150,12 +221,17 @@ angular.module('PlayAround',['ngRoute','ngStorage','angucomplete-alt','ui.carous
             templateUrl: "/resources/templates/playlist_Def.html",
             controller:"playlistDefCtrl",
             resolve:{
-                Playlist: function ($http, $route) {
-                    return $http.get(ipAddress+"/require/get_brani_playlist/" + $route.current.params.codice)
-                        .then(function (response) {
-                            //return JSON.stringify({nome:$scope.nomePlaylist,response:response.data});
+                Playlist: function ($http, $route,ipAddress) {
+
+                    return $http({
+                        method: "GET",
+                        url: ipAddress+"/require/get_brani_playlist/" + $route.current.params.codice,
+                        withCredentials: true
+                        }).then(function (response){
                             return response.data;
-                        })
+                        },function myError(response){
+                            return[];
+                        });
 
                 }
             }
@@ -165,29 +241,50 @@ angular.module('PlayAround',['ngRoute','ngStorage','angucomplete-alt','ui.carous
             templateUrl: "/resources/templates/artista.html",
             controller: "artistaCtrl",
             resolve:  {
-                Artista: function($http, $route){
-                    return $http.get(ipAddress+'/require/artista/'+ $route.current.params.id)
-                        .then(function(response){
+                Artista: function($http, $route,ipAddress){
+
+                    return $http({
+                        method: "GET",
+                        url: ipAddress+'/require/artista/'+ $route.current.params.id,
+                        withCredentials: true
+                        }).then(function (response){
                             return response.data;
-                        })
+                        },function myError(response){
+                            return[];
+                        });
+
                 },
-                SongArtista:function($http, $route){
-                    return $http.get(ipAddress+'/require/canzoni_ascoltate/'+ $route.current.params.id)
-                        .then(function(response){
+                SongArtista:function($http, $route,ipAddress){
+
+                    return $http({
+                        method: "GET",
+                        url: ipAddress+'/require/canzoni_ascoltate/'+ $route.current.params.id,
+                        withCredentials: true
+                        }).then(function (response){
                             return response.data;
-                        })
+                        },function myError(response){
+                            return[];
+                        });
+
                 },
-                AlbumArtista:function($http, $route){
-                    return $http.get(ipAddress+'/require/get_altro_artista/'+ $route.current.params.id)
-                        .then(function(response){
+                AlbumArtista:function($http, $route,ipAddress){
+
+                    return $http({
+                        method: "GET",
+                        url: ipAddress+'/require/get_altro_artista/'+ $route.current.params.id,
+                        withCredentials: true
+                        }).then(function (response){
                             return response.data;
-                        })
+                        },function myError(response){
+                            return[];
+                        });
+
                 }
-                }
+            }
         })
 
         .when("/player",{
-                templateUrl:"/resources/templates/player.html",
+            templateUrl:"/resources/templates/player.html",
             controller:"playerCtrl"
         })
 
@@ -196,11 +293,18 @@ angular.module('PlayAround',['ngRoute','ngStorage','angucomplete-alt','ui.carous
             templateUrl: "/resources/templates/artisti.html",
             controller: "artistiPrefCtrl",
             resolve: {
-                ArtistiPreferiti: function ($http) {
-                    return $http.get(ipAddress+'/require/artisti_seguiti')
-                        .then(function (response) {
+                ArtistiPreferiti: function ($http,ipAddress) {
+
+                    return $http({
+                        method: "GET",
+                        url: ipAddress+'/require/artisti_seguiti',
+                        withCredentials: true
+                        }).then(function (response){
                             return response.data;
+                        },function myError(response){
+                            return[];
                         });
+
                 }
             }
 
@@ -209,11 +313,21 @@ angular.module('PlayAround',['ngRoute','ngStorage','angucomplete-alt','ui.carous
             templateUrl: "/resources/templates/amici.html",
             controller: "amiciCtrl",
             resolve: {
-                Amici: function ($http) {
-                    return $http.get(ipAddress+'/require/get_amici')
-                        .then(function (response) {
+                Amici: function ($http,ipAddress) {
+                    
+                    return $http({
+                        method: "GET",
+                        url: ipAddress+'/require/get_amici',
+                        withCredentials: true
+                        }).then(function (response){
+                            for(amici in response.data){
+                                response.data[amici].immagine = ipAddress+response.data[amici].immagine;
+                            }
                             return response.data;
+                        },function myError(response){
+                            return[];
                         });
+
                 }
             }
 
@@ -223,11 +337,18 @@ angular.module('PlayAround',['ngRoute','ngStorage','angucomplete-alt','ui.carous
                 templateUrl:"/resources/templates/sceltiPerTe.html",
                 controller: "sceltiCtrl",
                 resolve: {
-                    Scelti: function ($http) {
-                        return $http.get(ipAddress+'/require/')
-                            .then(function (response) {
+                    Scelti: function ($http,ipAddress) {
+
+                        return $http({
+                            method: "GET",
+                            url: ipAddress+'/require/',
+                            withCredentials: true
+                            }).then(function (response){
                                 return response.data;
+                            },function myError(response){
+                                return[];
                             });
+
                     }
                 }
 
@@ -236,11 +357,18 @@ angular.module('PlayAround',['ngRoute','ngStorage','angucomplete-alt','ui.carous
                 templateUrl:"/resources/templates/piuAscoltati.html",
                 controller:"piuAscoltatiCtrl",
                 resolve: {
-                    PiuAscoltate: function ($http) {
-                        return $http.get(ipAddress+'/require/piu_ascoltate')
-                            .then(function (response) {
+                    PiuAscoltate: function ($http,ipAddress) {
+
+                        return $http({
+                            method: "GET",
+                            url: ipAddress+'/require/piu_ascoltate',
+                            withCredentials: true
+                            }).then(function (response){
                                 return response.data;
+                            },function myError(response){
+                                return[];
                             });
+
                     }
                 }
 
@@ -249,17 +377,37 @@ angular.module('PlayAround',['ngRoute','ngStorage','angucomplete-alt','ui.carous
                 templateUrl:"/resources/templates/mood.html",
                 controller:"moodCtrl",
                 resolve: {
-                    Mood: function ($http) {
-                        return $http.get(ipAddress+'/require/playlist_mood')
-                            .then(function (response) {
+                    Mood: function ($http,ipAddress) {
+
+                        return $http({
+                            method: "GET",
+                            url: ipAddress+'/require/playlist_mood',
+                            withCredentials: true
+                            }).then(function (response){
+                                for(playlist in response.data){
+                                    response.data[playlist].immagine = ipAddress+response.data[playlist].immagine;
+                                }
                                 return response.data;
+                            },function myError(response){
+                                return[];
                             });
+
                     },
-                    Genere: function ($http) {
-                        return $http.get(ipAddress+'/require/playlist_genere')
-                            .then(function (response) {
+                    Genere: function ($http,ipAddress) {
+
+                        return $http({
+                            method: "GET",
+                            url: ipAddress+'/require/playlist_genere',
+                            withCredentials: true
+                            }).then(function (response){
+                                for(playlist in response.data){
+                                    response.data[playlist].immagine = ipAddress+response.data[playlist].immagine;
+                                }
                                 return response.data;
+                            },function myError(response){
+                                return[];
                             });
+
                     }
                 }
 
@@ -269,23 +417,47 @@ angular.module('PlayAround',['ngRoute','ngStorage','angucomplete-alt','ui.carous
                 templateUrl: "/resources/templates/album.html",
                 controller: "albumCtrl",
                 resolve:  {
-                    Album: function($http, $route){
-                        return $http.get(ipAddress+'/require/get_album/'+ $route.current.params.codAlbum)
-                            .then(function(response){
+                    Album: function($http, $route,ipAddress){
+
+                        return $http({
+                            method: "GET",
+                            url: ipAddress+'/require/get_album/'+ $route.current.params.codAlbum,
+                            withCredentials: true
+                            }).then(function (response){
                                 return response.data;
-                            })
-                    },
-                    BraniAlbum: function($http, $route){
-                        return $http.get(ipAddress+'/require/get_brani_album/' + $route.current.params.codAlbum)
-                            .then(function(response){
-                                return response.data;
-                            })
-                    },
-                    ListaPlaylist: function ($http) {
-                        return $http.get(ipAddress+'/require/le_tue_playlist')
-                            .then(function (response) {
-                                return response.data;
+                            },function myError(response){
+                                return[];
                             });
+
+                    },
+                    BraniAlbum: function($http, $route,ipAddress){
+
+                        return $http({
+                            method: "GET",
+                            url: ipAddress+'/require/get_brani_album/' + $route.current.params.codAlbum,
+                            withCredentials: true
+                            }).then(function (response){
+                                return response.data;
+                            },function myError(response){
+                                return[];
+                            });
+
+                    },
+                    ListaPlaylist: function ($http,ipAddress) {
+
+                        return $http({
+                            method: "GET",
+                            url: ipAddress+'/require/le_tue_playlist',
+                            withCredentials: true
+                            }).then(function (response){
+                                for(playlist in response.data){
+                                    response.data[playlist].immagine = ipAddress+response.data[playlist].immagine;
+                                }
+                                return response.data;
+                            },function myError(response){
+                                return[];
+                            });
+
                     }
 
                    /*AltriAlbum: function($http){
@@ -301,40 +473,49 @@ angular.module('PlayAround',['ngRoute','ngStorage','angucomplete-alt','ui.carous
             template: "/resources/templates/home.html",
             controller:"homeCtrl",
             resolve:{
-                Giornaliera: function ($http,ipAddress) {
-                    var data =new Date();
+                Giornaliera: function ($http,ipAddress){
+                    var data = new Date();
+
                     return $http({
                         method: "GET",
                         url: ipAddress+'/require/playlist_giornaliera/'+ data,
+                        withCredentials: true
+                        }).then(function (response){
+                            for(playlist in response.data){
+                                response.data[playlist].immagine = ipAddress+response.data[playlist].immagine;
+                            }
+                            return response.data;
+                        },function myError(response){
+                            return[];
+                        });
+
+                },
+                Recently: function ($http,ipAddress) {
+                    
+                    return $http({
+                        method: "GET",
+                        url: ipAddress+'/require/ascoltati_recente',
                         withCredentials: true
                         }).then(function (response){
                             return response.data;
                         },function myError(response){
                             return[];
                         });
-                    },
-                    Recently: function ($http,ipAddress) {
-                        return $http({
-                            method: "GET",
-                            url: ipAddress+'/require/ascoltati_recente',
-                            withCredentials: true
-                            }).then(function (response){
-                                return response.data;
-                            },function myError(response){
-                                return[];
-                            });
-                    },
-                    AmiciSong: function ($http,ipAddress) {  
-                        return $http({
-                            method: "GET",
-                            url: ipAddress+'/require/ascoltano_amici',
-                            withCredentials: true
-                            }).then(function (response){
-                                return response.data;
-                            },function myError(response){
-                                return[];
-                            });
-                    }
+
+                },
+                AmiciSong: function ($http,ipAddress) { 
+
+                    return $http({
+                        method: "GET",
+                        url: ipAddress+'/require/ascoltano_amici',
+                        withCredentials: true
+                        }).then(function (response){
+                            return response.data;
+                        },function myError(response){
+                            return[];
+                        });
+
+                }
             }
         })
 })
