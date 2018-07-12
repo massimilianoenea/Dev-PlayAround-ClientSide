@@ -1,8 +1,12 @@
-angular.module('PlayAround',['PlayAroundConf'])
-    .controller('login',function($scope, $http,ipAddress){
-        
-        delete $http.defaults.headers.common['X-Requested-With'];
+var app = angular.module('PlayAroundLogin',['PlayAroundConf']);
 
+    app.config(function($httpProvider) {
+        $httpProvider.defaults.useXDomain = true;
+        delete $httpProvider.defaults.headers.common['X-Requested-With'];
+        $httpProvider.defaults.withCredentials = true;
+    });
+
+    app.controller('login',function($scope, $http,ipAddress,codeManager){
         $scope.try_login = function(){
             var parameter = {email:$scope.email,password:$scope.password};
             $http({
@@ -12,7 +16,15 @@ angular.module('PlayAround',['PlayAroundConf'])
                 withCredentials: true,
                 headers: { 'Content-Type': 'application/json' }
             }).then(function mySuccess(response) {
-                window.location.replace(response.data.location);
+                $http({
+                    method: "GET",
+                    url: ipAddress + response.data.location,
+                    withCredentials: true
+                }).then(function mySuccess(response){
+                    window.location.href = codeManager[response.data.code];
+                },function myError(response){
+                    window.location.href = codeManager[1];
+                });
             }, function myError(response) {
                 $scope.message = true;
                 $scope.error = response.data.message;

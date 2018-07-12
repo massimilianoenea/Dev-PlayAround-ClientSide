@@ -6,21 +6,27 @@
     <title>Login PlayAround</title>
     <link rel="icon" href="../resources/image/Symbol playaround logo.png" type="image/png" />
     <!-- Style -->
-    <link rel="stylesheet" type="text/css" href="../resources/css/multiStepForm.css">
+    <link rel="stylesheet" type="text/css" href="/resources/css/multiStepForm.css">
     <!-- AngularJs -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-    <script src="../resources/ng-file-upload-bower-10.1.8/ng-file-upload.js"></script>
-    <script src="../resources/ng-file-upload-bower-10.1.8/ng-file-upload-shim.js"></script>
+    <script src="/resources/ng-file-upload-bower-10.1.8/ng-file-upload.js"></script>
+    <script src="/resources/ng-file-upload-bower-10.1.8/ng-file-upload-shim.js"></script>
+    <script src="/resources/js/jquery-1.10.1.js"></script>
+    <script src="/resources/js/jquery-ui.js"></script>
+    <script src="/resources/js/rainbow-custom.min.js"></script>
+    <script src="/resources/js/taggle.min.js"></script>
+    <script src="/resources/angularFile/constant.js"></script>
+    <script src="/resources/angularFile/multistepController.js"></script>
     <!--Pulling Awesome Font -->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 
 <body id="PlayAround_CompleteReg" ng-app="PlayAround" ng-controller="multiFormCtrl">
 
-<div data-ng-init="checkOn()">
+<div>
     <div class="page-header">
         <div align="center">
-            <img src="../resources/image/Symbol_playaround_complete.png" alt="logo PlayAround" class="image-responsive">
+            <img src="/resources/image/Symbol_playaround_complete.png" alt="logo PlayAround" class="image-responsive">
         </div>
     </div>
 
@@ -73,224 +79,7 @@
         </form>
     </div>
 </div>
-        <script src="public/js/jquery-1.10.1.js"></script>
-        <script src="public/js/jquery-ui.js"></script>
-        <script src="public/js/rainbow-custom.min.js"></script>
-        <script src="public/js/taggle.min.js"></script>
-        <script>
-
-        var cantanti = new Taggle('cantanti',{
-            onTagRemove: function(event, tag) {
-                parameter.splice(parameter.indexOf(arrCod[arrName.indexOf(tag)]), 1);
-            }
-        });
-
-        var container = cantanti.getContainer();
-        var input = cantanti.getInput();
-
-        var genere = new Taggle('genere',{
-            onTagRemove: function(event, tag) {
-                parameter.splice(parameter.indexOf(arrCod[arrName.indexOf(tag)]), 1);
-            }
-        });
-        var container_gen = genere.getContainer();
-        var input_gen = genere.getInput();
-
-        var arrName = [];
-        var arrCod = [];
-        var parameter = [];
-
-        $(input).autocomplete({
-            delay:400,
-            minlength:3,
-            source: function(request, response){
-                // New request 300ms after key stroke
-                if(request.term === '') response("");
-                    var $this = $(this);
-                    var $element = $(this.element);
-                    var previous_request = $element.data("jqXHR");
-                    if(previous_request) {
-                        // a previous request has been made.
-                        // though we don't know if it's concluded
-                        // we can try and kill it in case it hasn't
-                        previous_request.abort();
-                    }
-                    $element.data( "jqXHR", $.ajax({
-                        url: "/autocomplete/artist/"+request.term,
-                        type:"get",
-                        dataType: "json",
-                        success: function( data ) {
-                            arrName.length = 0;
-                            arrCod.length = 0;
-                            for (name in data.text) {
-                                arrName.push(data.text[name].NOME);
-                                arrCod.push({type:"artist",cod:data.text[name].COD});
-                            }
-                            response(arrName);
-                        }
-                    }));
-            },
-            appendTo: container,
-            position: { at: "left bottom", of: container },
-            select: function(event, data) {
-                event.preventDefault();
-                //Add the tag if user clicks
-                if (event.which === 1) {
-                    cantanti.add(data.item.value);
-                    parameter.push(arrCod[arrName.indexOf(data.item.value)]);
-                }
-            }
-        });
-
-        $(input_gen).autocomplete({
-            delay:400,
-            minlength:3,
-            source: function(request, response){
-                // New request 300ms after key stroke
-                if(request.term === '') response("");
-                var $this = $(this);
-                var $element = $(this.element);
-                var previous_request = $element.data("jqXHR");
-                if(previous_request) {
-                    // a previous request has been made.
-                    // though we don't know if it's concluded
-                    // we can try and kill it in case it hasn't
-                    previous_request.abort();
-                }
-                $element.data( "jqXHR", $.ajax({
-                    url: "/autocomplete/genere/"+request.term,
-                    type:"get",
-                    dataType: "json",
-                    success: function( data ) {
-                        arrName.length = 0;
-                        arrCod.length = 0;
-                        for (name in data.text) {
-                            arrName.push(data.text[name].NOME);
-                            arrCod.push({type:"genere",cod:data.text[name].COD});
-                        }
-                        response(arrName);
-                    }
-                }));
-            },
-            appendTo: container_gen,
-            position: { at: "left bottom", of: container_gen },
-            select: function(event, data) {
-                event.preventDefault();
-                //Add the tag if user clicks
-                if (event.which === 1) {
-                    genere.add(data.item.value);
-                    parameter.push(arrCod[arrName.indexOf(data.item.value)]);
-                }
-            }
-        });
-
-
-        var currentTab = 0; // Current tab is set to be the first tab (0)
-        showTab(currentTab); // Display the crurrent tab
-        function showTab(n) {
-            // This function will display the specified tab of the form...
-            var x = document.getElementsByClassName("tab");
-            x[n].style.display = "block";
-            //... and fix the Previous/Next buttons:
-            if (n == 0) {
-                document.getElementById("prevBtn").style.display = "none";
-            } else {
-                document.getElementById("prevBtn").style.display = "inline";
-            }
-            if (n == (x.length - 1)) {
-                document.getElementById("nextBtn").innerHTML = "Finish";
-            } else {
-                document.getElementById("nextBtn").innerHTML = "Next";
-            }
-            //... and run a function that will display the correct step indicator:
-            fixStepIndicator(n)
-        }
-
-        function nextPrev(n) {
-            // This function will figure out which tab to display
-            var x = document.getElementsByClassName("tab");
-            // Hide the current tab:
-            x[currentTab].style.display = "none";
-            // Increase or decrease the current tab by 1:
-            currentTab = currentTab + n;
-            // if you have reached the end of the form...
-            if (currentTab >= x.length) {
-                // ... the form gets submitted:
-                //document.getElementById("regForm").submit();
-                angular.element(document.getElementById('PlayAround_CompleteReg')).scope().sendComplete();
-                return false;
-            }
-            // Otherwise, display the correct tab:
-            showTab(currentTab);
-        }
-
-        function fixStepIndicator(n) {
-            // This function removes the "active" class of all steps...
-            var i, x = document.getElementsByClassName("step");
-            for (i = 0; i < x.length; i++) {
-                x[i].className = x[i].className.replace(" active", "");
-            }
-            //... and adds the "active" class on the current step:
-            x[n].className += " active";
-        }
-    </script>
-
-    <script>
-
-        var app = angular.module('PlayAround',['ngFileUpload']);
-        app.controller('multiFormCtrl', function($scope, $http,Upload, $timeout,ipAddress) {
-            $scope.checkOn = function(){
-                $http({
-                    method : "POST",
-                    url : '/playaround/getUtenteLog',
-                    withCredentials: true,
-                    headers: { 'Content-Type': 'application/json' }
-                }).then(function mySuccess(response) {
-                }, function myError(response) {
-                    window.location.href = '/login';
-                });
-            };
-
-            $scope.uploadFiles = function(file, errFiles) {
-                $scope.f = file;
-                $scope.errFile = errFiles && errFiles[0];
-                if (file) {
-                    file.upload = Upload.upload({
-                        url: '/playaround/upload_profile',
-                        method:'POST',
-                        withCredentials: true,
-                        file: file
-                    });
-                    file.upload.then(function (response) {
-                        $timeout(function () {
-                            file.result = response.data;
-                        });
-                    }, function (response) {
-                        if (response.status > 0)
-                            $scope.errorMsg = response.status + ': ' + response.data;
-                    }, function (evt) {
-                        file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-                    });
-                }
-            };
-
-            $scope.sendComplete = function(){
-                console.log(parameter);
-                $http({
-                    method : "POST",
-                    url : '/Complete_Reg',
-                    data: parameter,
-                    withCredentials: true,
-                    headers: { 'Content-Type': 'application/json' }
-                }).then(function mySuccess(response) {
-                    window.location.replace(response.data.location);
-                }, function myError(response) {
-                    $scope.error = response.data;
-                    window.location.replace(response.data.location);
-                });
-            }
-        });
-    </script>
+    <script src="/resources/js/multistepFormTag.js"></script>
 </body>
 </html>
 

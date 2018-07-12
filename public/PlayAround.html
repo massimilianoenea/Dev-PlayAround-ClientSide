@@ -5,25 +5,26 @@
 <title>PlayAround</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="/public/image/Symbol playaround logo.png" type="image/png" />
+    <link rel="icon" href="../resources/image/Symbol playaround logo.png" type="image/png" />
     <meta name="description" content="Tutta la musica che cerchi, a portata di CLICK!">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/public/angular-ui-carousel/dist/ui-carousel.min.css">
-    <link rel="stylesheet" type="text/css" href="/public/css/playaround.css">
+    <link rel="stylesheet" href="../resources/angular-ui-carousel/dist/ui-carousel.min.css">
+    <link rel="stylesheet" type="text/css" href="../resources/css/playaround.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.10/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.10/angular-route.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.10/ngStorage.min.js"></script>
-    <script src="/public/angucomplete-alt-master/dist/angucomplete-alt.min.js"></script>
-    <script src="/public/angular-ui-carousel/dist/ui-carousel.min.js"></script>
-    <script src="/public/socket.io-client-master/dist/socket.io.js"></script>
-    <script src="/public/socket.io-stream.js"></script>
-    <script src="/public/angularFile/app.js"></script>
-    <script src="/public/angularFile/controller.js"></script>
-    <script src="/public/angularFile/service.js"></script>
-
+    <script src="../resources/angucomplete-alt-master/dist/angucomplete-alt.min.js"></script>
+    <script src="../resources/angular-ui-carousel/dist/ui-carousel.min.js"></script>
+    <script src="../resources/socket.io-client-master/dist/socket.io.js"></script>
+    <script src="../resources/socket.io-stream.js"></script>
+    <script src="../resources/angularFile/constant.js"></script>
+    <script src="../resources/angularFile/app.js"></script>
+    <script src="../resources/angularFile/service.js"></script>
+    <script src="../resources/angularFile/controller.js"></script>
     </head>
+
     <body ng-app="PlayAround" ng-controller="PlayAround">
 
     <script>
@@ -71,7 +72,7 @@
            <a href="#!" ng-click="enablePlayerino();deviceConnected()" onclick="closeNav()">I tuoi device</a>
         </div>
         <div  class="mobileHeader">
-            <img src="/image/Symbol_playaround_complete.png" style="width: 60%;float: right;display: inline;margin-right: 15%;">
+            <img src="../resources/image/Symbol_playaround_complete.png" style="width: 60%;float: right;display: inline;margin-right: 15%;">
             <span class="button" style="font-size:30px;cursor:pointer;color: whitesmoke ;width:15%" onclick="openNav()">&#9776;</span>
 
         </div>
@@ -79,7 +80,7 @@
         <!-- Quando sei in desktop view -->
         <div class="side">
             <div>
-            <img src="/image/Symbol_playaround_complete.png" alt="logo" style="height: 60px; margin-right:10px;">
+            <img src="../resources/image/Symbol_playaround_complete.png" alt="logo" style="height: 60px; margin-right:10px;">
             </div>
                 <div class="chip">
           <img ng-src="{{Utente.immagine}}" alt="Avatar"/>
@@ -174,10 +175,6 @@
                           {{user.canzone.titolo}}
 
                       </marquee>
-
-                   
-
-
             </div>
           </div>
         </div>

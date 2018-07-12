@@ -4,145 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Registrazione PlayAround</title>
-    <link rel="icon" href="/image/Symbol playaround logo.png" type="image/png" />
+    <link rel="icon" href="/resources/image/Symbol playaround logo.png" type="image/png" />
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.10/angular.min.js"></script>
     <!--Pulling Awesome Font -->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <style>
-        @import url(http://fonts.googleapis.com/css?family=Roboto:400);
-        body {
-            background-color:whitesmoke;
-            -webkit-font-smoothing: antialiased;
-            font: normal 14px Roboto,arial,sans-serif;
-        }
-        * {
-            box-sizing: border-box;
-        }
+    <link href="/resources/css/registration.css" rel="stylesheet">
+    <script src="/resources/angularFile/singupController.js"></script>
 
-        .container {
-            padding: 20px;
-
-        }
-
-        .page-header{
-            background-color: #12436d;
-            width: 100%;
-            max-height: 150px;
-        }
-
-        .image-responsive {
-            width: auto;
-            max-height: 100px;
-            height: auto;
-        }
-
-        .form-login {
-            /*
-            background-color: white;
-            border-style: solid;
-            border-width: 5px;
-            border-color: #357ebd;
-            */
-            padding-top: 10px;
-            padding-bottom: 20px;
-            padding-left: 20px;
-            padding-right: 20px;
-            border-radius: 30px;
-            box-shadow:4px 5px 15px 5px #bfbfbf;
-            width: 50%;
-            height: auto;
-        }
-
-        h3 {
-            border:0 solid #fff;
-            border-bottom-width:2px;
-            padding-bottom:10px;
-            text-align: center;
-            color: #a00e6d;
-        }
-        input[type=email], select, textarea{
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            box-sizing: border-box;
-            resize: vertical;
-        }
-
-        input[type=text], select, textarea{
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            box-sizing: border-box;
-            resize: vertical;
-        }
-        input[type=password],select, textarea{
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            box-sizing: border-box;
-            resize: vertical;
-        }
-        .btn-primary {
-            color: #fff;
-            background-color: #a00e6d;
-            border-color: #357ebd;
-            border: 1px solid;
-            border-radius: 5px;
-            width: 30%;
-            height: 30px;
-
-        }
-
-
-        .btn-primary:active{
-            background-color: #357ebd;
-
-        }
-
-        .textLink{
-            color: #357ebd;
-            font-size: medium;
-            text-align: center;
-        }
-        textarea.ng-invalid{
-            border:1px solid red;
-            border-left: 5px solid red;
-        }
-        textarea.ng-valid.ng-dirty{
-            border:1px solid green;
-            border-left: 5px solid green;
-        }
-        select.ng-invalid{
-            border:1px solid red;
-            border-left: 5px solid red;
-        }
-        select.ng-valid.ng-dirty{
-            border:1px solid green;
-            border-left: 5px solid green;
-        }
-        input.ng-invalid{
-            border:1px solid red;
-            border-left: 5px solid red;
-        }
-        input.ng-valid.ng-dirty{
-            border:1px solid green;
-            border-left: 5px solid green;
-        }
-        @media screen and (max-width: 700px) {
-            .form-login, input[type=submit] {
-                width: 100%;
-
-            }
-        }
-    </style>
 </head>
 <body ng-app="PlayAround" ng-controller="registration">
 <div class="page-header">
     <div align="center">
-        <img class="image-responsive" src="/image/Symbol_playaround_complete.png" alt="logo PlayAround"/>
+        <img class="image-responsive" src="/resources/image/Symbol_playaround_complete.png" alt="logo PlayAround"/>
     </div>
 </div>
 <div class="container" align="center">
@@ -187,7 +60,7 @@
                 <br>
                 <p class="textLink">Hai già un Account ?
                     <span>
-                    <a href="./login" style="color: #a00e6d">Effettua il Login</a>
+                    <a href="/public/login.html" style="color: #a00e6d">Effettua il Login</a>
                     </span>
                 </p>
 
@@ -196,30 +69,5 @@
             </form>
 
         </div>
-
-
-<script>
-    var app = angular.module('PlayAround', []);
-    app.controller('registration', function($scope, $http) {
-
-        $scope.try_signup = function(){
-            var parameter = {email:$scope.email,password:$scope.password,username:$scope.username};
-            $http({
-                method : "POST",
-                url : '/playaround/singup',
-                data: parameter,
-                withCredentials: true,
-                headers: { 'Content-Type': 'application/json' }
-            }).then(function mySuccess(response) {
-                $scope.message=true;
-                $scope.error=response.data;
-            }, function myError(response) {
-                $scope.message=true;
-                $scope.error = response.data;
-            });
-        };
-
-    });
-</script>
 </body>
 </html>

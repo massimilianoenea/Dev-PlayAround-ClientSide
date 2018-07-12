@@ -1,6 +1,6 @@
 angular.module('PlayAround')
 
-.controller('PlayAround',function ($scope, $sessionStorage,$http,socket,$compile) {
+.controller('PlayAround', function ($scope, $sessionStorage,$http,socket,$compile,ipAddress) {
     delete $http.defaults.headers.common['X-Requested-With'];
     /**
      *
@@ -11,10 +11,11 @@ angular.module('PlayAround')
     this.$onInit = function (){
         $http({
             method : "POST",
-            url : '/playaround/getUtenteLog',
+            url : ipAddress+'/playaround/getUtenteLog',
             withCredentials: true,
             headers: { 'Content-Type': 'application/json' }
         }).then(function mySuccess(response) {
+            response.data.immagine = ipAddress+response.data.immagine;
             $scope.Utente = response.data;
             $sessionStorage.UserLogged = response.data;
             socket.emit('getFriend', {username: $sessionStorage.UserLogged.username, email: $sessionStorage.UserLogged.email});
@@ -24,7 +25,7 @@ angular.module('PlayAround')
             $scope.getRepeatStyle();
             socket.emit('event', {username: $sessionStorage.UserLogged.username});
         }, function myError(response) {
-             window.location.replace('/login');
+            window.location.replace('./login.html');
         });
     };
 
@@ -51,7 +52,7 @@ angular.module('PlayAround')
                                 data.push({val:{type:"Album: ",response:{nome:val.titolo + " "+ val.anno,codice:val.codice,immagine:val.immagine},original:val}});
                                 break;
                             case "utenti":
-                                data.push({val:{type:"Utente: ",response:{nome:val.username,codice:val.username,immagine:"/image/profile/"+val.username+".png"},original:val}});
+                                data.push({val:{type:"Utente: ",response:{nome:val.username,codice:val.username,immagine:ipAddress+"/image/profile/"+val.username+".png"},original:val}});
                                 break;
                             default:
                                 data.length = 0;
@@ -792,14 +793,13 @@ angular.module('PlayAround')
     /**
      * homepage
      */
-    .controller('homeCtrl', function ($scope, Giornaliera, Recently, AmiciSong) {
-       $scope.playlistG=Giornaliera;
+    .controller('homeCtrl', function ($scope, Giornaliera, Recently, AmiciSong,ipAddress) {
        $scope.recently=Recently;
        $scope.musicFriends=AmiciSong;
 
         var slides = [];
         for (playlist in Giornaliera){
-            slides.push({nome:Giornaliera[playlist].nome,immagine:Giornaliera[playlist].immagine,codice:Giornaliera[playlist].codice});
+            slides.push({nome:Giornaliera[playlist].nome,immagine:ipAddress+Giornaliera[playlist].immagine,codice:Giornaliera[playlist].codice});
         }
         $scope.slides = slides;
     })

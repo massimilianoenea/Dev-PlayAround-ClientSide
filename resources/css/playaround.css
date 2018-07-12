@@ -347,7 +347,7 @@ li{
     color: gold;
 }
 .playerino{
-    background-image: url("/image/sfondo_playerino2.jpg");
+    background-image: url("../image/sfondo_playerino2.jpg");
     background-size:cover;
     height: 360px;
     width:100%;
