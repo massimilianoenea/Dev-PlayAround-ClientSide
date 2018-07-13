@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Registrazione PlayAround</title>
     <link rel="icon" href="../resources/image/Symbol playaround logo.png" type="image/png" />
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.10/angular.min.js"></script>
     <!--Pulling Awesome Font -->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="../resources/css/registration.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.10/angular.min.js"></script>
+    <script src="../resources/angularFile/constant.js"></script>
     <script src="../resources/angularFile/singupController.js"></script>
-
 </head>
 <body ng-app="PlayAround" ng-controller="registration">
 <div class="page-header">
@@ -19,7 +19,6 @@
     </div>
 </div>
 <div class="container" align="center">
-
         <form class="form-login" name="myRegister" novalidate>
             <div class="row">
                 <h3>REGISTRAZIONE</h3>
@@ -53,7 +52,6 @@
                 <button ng-click="try_signup()" class="btn btn-primary btn-md" ng-disabled="myRegister.$invalid">Registrati<i class="fa fa-sign-in"></i></button>
             </span>
                     <p ng-show="message" style="color: red; font-size: 20px; padding-top: 10px"ng-bind="error.text"></p>
-
             </div>
                 <br>
                 <div style="background-color: white;height: 2px"></div>
@@ -63,11 +61,7 @@
                     <a href="./login.html" style="color: #a00e6d">Effettua il Login</a>
                     </span>
                 </p>
-
-
-
             </form>
-
         </div>
 </body>
 </html>
