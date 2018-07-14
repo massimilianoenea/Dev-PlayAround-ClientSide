@@ -8,6 +8,7 @@ var app = angular.module('PlayAroundLogin',['PlayAroundConf']);
 
     app.controller('login',function($scope, $http,ipAddress,codeManager){
         $scope.try_login = function(){
+            $scope.message = false;
             var parameter = {email:$scope.email,password:$scope.password};
             $http({
                 method : "POST",
@@ -23,7 +24,8 @@ var app = angular.module('PlayAroundLogin',['PlayAroundConf']);
                 }).then(function mySuccess(response){
                     window.location.href = codeManager[response.data.code];
                 },function myError(response){
-                    window.location.href = codeManager[1];
+                    $scope.message = true;
+                    $scope.error = "impossibile autenticare, riprova più tardi";
                 });
             }, function myError(response) {
                 $scope.message = true;

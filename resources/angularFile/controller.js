@@ -193,7 +193,7 @@ angular.module('PlayAround')
     }
 
     $scope.getInCoda = function(){
-        if($sessionStorage.listOfSong.list) return $sessionStorage.listOfSong.list;
+        if($sessionStorage.listOfSong) return $sessionStorage.listOfSong.list;
         return [];
     };
 
