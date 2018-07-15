@@ -588,6 +588,7 @@ angular.module('PlayAround')
 
     .controller('playlistCtrl', function($scope, PersonalPlaylist, $http,ipAddress){
         var nomePlaylist = "";
+        console.log(PersonalPlaylist);
         $scope.playlist=PersonalPlaylist;
         $scope.visible=false;
         $scope.create=true;
@@ -613,13 +614,13 @@ angular.module('PlayAround')
            var parameter={nome_playlist:$scope.namePlaylist};
            $http({
                method:"POST",
-               url : ip.Address+'/require/nuova_playlist',
+               url : ipAddress+'/require/nuova_playlist',
                data: parameter,
                withCredentials: true,
                headers: { 'Content-Type': 'application/json' }
            }).then(function mySuccess(response){
                nomePlaylist = $scope.namePlaylist;//questo la passo sotto per aggiungere i brani
-               $scope.playlist.push({codice:response.data.codice, immagine:ipAddress+response.data.img, nome: response.data.nome});
+               $scope.playlist.push({codice:response.data.codice, img:ipAddress+response.data.img, nome: response.data.nome});
                $scope.create=false;
                $scope.message=false;
                $scope.apply();
