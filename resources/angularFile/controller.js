@@ -528,7 +528,7 @@ angular.module('PlayAround')
         $scope.addFriend = function () {
             $http({
                 method : "POST",
-                url : ipAddress+'require/add_amico',
+                url : ipAddress+'/require/add_amico',
                 data: {username:User.username},
                 withCredentials: true,
                 headers: { 'Content-Type': 'application/json' }
@@ -546,7 +546,7 @@ angular.module('PlayAround')
         $scope.deleteFriend = function () {
             $http({
                 method : "POST",
-                url : ipAddress+'require/delete_amico',
+                url : ipAddress+'/require/delete_amico',
                 data: {username:User.username},
                 withCredentials: true,
                 headers: { 'Content-Type': 'application/json' }
@@ -571,7 +571,7 @@ angular.module('PlayAround')
 
         $http({
             method: "GET",
-            url: ipAddress+"require/ascoltati_recente_utente/" + User.username
+            url: ipAddress+"/require/ascoltati_recente_utente/" + User.username
         })
             .then(function mySuccess(response) {
                 recently.push.apply(response);
