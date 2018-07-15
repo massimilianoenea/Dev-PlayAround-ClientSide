@@ -62,10 +62,11 @@
         <div class="row_img">
             <div class="column_img" ng-repeat="braniAmici in musicFriends | limitTo:6">
                 <div class="container_img">
-                    <img ng-src={{braniAmici.immagine}} class="image" ng-click="loadBrano(braniAmici.codice,musicFriends);setCurrentCoda($index)">
+                    <img ng-src={{braniAmici.immagine}} class="image" ng-click="loadBrano(braniAmici.codice,musicFriends);setCurrentCoda($index);snackRiproduzione()">
                     <div class="overlay">{{braniAmici.titolo}}</div>
                 </div>
             </div>
         </div>
+        <div class="snackbarMusic" ng-show="riproduzione"> <a href="#!player"> Brano in Riproduzione </a></div>
 </body>
 </html>

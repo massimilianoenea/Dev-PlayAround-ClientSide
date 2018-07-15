@@ -141,12 +141,13 @@ h2{
     to {top:0; opacity:1}
 }
 /*button Aggiungi Nuova Playlist*/
-.fa.fa-plus-square{
+.fa.fa-minus-circle{
     color: white;
 
 }
-.fa.fa-plus-square:hover{
+.fa.fa-minus-circle:hover{
     color: #a00e6d;
+    font-size: large;
 }
 #textBtn{
     font-family: Verdana;
