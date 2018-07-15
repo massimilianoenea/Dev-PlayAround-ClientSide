@@ -189,7 +189,7 @@ angular.module('PlayAround',['ngRoute','ngStorage','angucomplete-alt','ui.carous
             templateUrl: "../resources/templates/playlist_Ut.html",
             controller:"playlistUtCtrl",
             resolve:{
-                PlaylistDef: function ($http, $route,ipAddress) {
+                Playlist: function ($http, $route,ipAddress) {
 
                     return $http({
                         method: "GET",
