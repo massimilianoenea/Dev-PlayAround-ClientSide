@@ -518,7 +518,11 @@ angular.module('PlayAround')
         $scope.ascoltati=Ascoltati;
         $scope.seguiti=Seguiti;
         $scope.isFriend = User.amici;
+        $scope.riproduzione=false;
 
+        $scope.snackRiproduzione=function () {
+            $scope.riproduzione=true;
+        }
 
         var recently = [];
         $scope.addFriend = function () {
@@ -685,11 +689,19 @@ angular.module('PlayAround')
             });
 
         };
+        $scope.riproduzione=false;
+        $scope.snackRiproduzione=function () {
+            $scope.riproduzione=true;
+        }
 
     })
     .controller('tueCanzoniCtrl', function ($scope, Saved,$http,ipAddress){
         $scope.salvate=Saved;
         $scope.visible=false;
+        $scope.riproduzione=false;
+        $scope.snackRiproduzione=function () {
+            $scope.riproduzione=true;
+        }
         $scope.showBox=function () {
             $scope.visible=true;
         };
@@ -714,12 +726,20 @@ angular.module('PlayAround')
     })
     .controller('recentiCtrl', function ($scope, Recenti){
         $scope.recenti=Recenti;
+        $scope.riproduzione=false;
+        $scope.snackRiproduzione=function () {
+            $scope.riproduzione=true;
+        }
     })
     /**
      * Playlist predefinita
      */
-    .controller("playlistDefCtrl", function($scope, Playlist){
-        $scope.playlistDef=Playlist;
+    .controller("playlistDefCtrl", function($scope, PlaylistDef){
+        $scope.playlistdef=PlaylistDef;
+        $scope.riproduzione=false;
+        $scope.snackRiproduzione=function () {
+            $scope.riproduzione=true;
+        }
     })
     /**
      * sezione Amici
@@ -761,6 +781,11 @@ angular.module('PlayAround')
             .then(function mySuccess(response) {
                 $scope.isFollowed = false;
             })
+
+            $scope.riproduzione=false;
+            $scope.snackRiproduzione=function () {
+                $scope.riproduzione=true;
+            }
         };
 
         /**
@@ -795,6 +820,11 @@ angular.module('PlayAround')
     })
     .controller('piuAscoltatiCtrl', function ($scope,PiuAscoltate) {
       $scope.topBrani=PiuAscoltate;
+        $scope.riproduzione=false;
+
+        $scope.snackRiproduzione=function () {
+            $scope.riproduzione=true;
+        }
 
     })
     /**
@@ -804,12 +834,17 @@ angular.module('PlayAround')
        $scope.recently=Recently;
        $scope.musicFriends=AmiciSong;
        $scope.playlistG=Giornaliera;
+       $scope.riproduzione=false;
 
         var slides = [];
         for (playlist in Giornaliera){
             slides.push({nome:Giornaliera[playlist].nome,immagine:Giornaliera[playlist].immagine,codice:Giornaliera[playlist].codice});
         }
         $scope.slides = slides;
+        
+        $scope.snackRiproduzione=function () {
+            $scope.riproduzione=true;
+        }
     })
     /**
      * Search bar
@@ -921,7 +956,7 @@ angular.module('PlayAround')
         $scope.album=Album;
         $scope.brani=BraniAlbum;
         $scope.lista=ListaPlaylist;
-        //$scope.altri=AltriAlbum;
+       $scope.riproduzione=false;
 
         $scope.notifica=false
         $scope.notifica2=false;
@@ -966,6 +1001,10 @@ angular.module('PlayAround')
             }).then(function mySuccess(response) {
                 $scope.notifica=true;/*attivo la snackbar di notifica*/
             });
+        }
+
+        $scope.snackRiproduzione=function () {
+            $scope.riproduzione=true;
         }
 
     });

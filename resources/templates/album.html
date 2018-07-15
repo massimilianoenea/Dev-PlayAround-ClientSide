@@ -18,7 +18,7 @@
 
         <ul class="">
             <li  ng-repeat="song in brani">
-                <p style="width: 70%" ng-click="loadBrano(song.codice,brani);setCurrentCoda($index)">{{song.titolo}}</p>
+                <p style="width: 70%" ng-click="loadBrano(song.codice,brani);setCurrentCoda($index);snackRiproduzione()">{{song.titolo}}</p>
                 <i title="Aggiungi a Playlist" class="fa fa-plus dropbtn" aria-hidden="true" ng-click="showDrop(song.codice)"></i>
                 <div class="dropdown" ng-show="codice === song.codice ? true : false">
                     <div class="dropdown-content">
@@ -35,6 +35,7 @@
     </div>
     <div class="snackbar" ng-show="notifica"> <a href="#!libreria\leTueCanzoni"> Aggiunto alle tue Canzoni</a></div>
     <div class="snackbar" ng-show="notifica2"> <a href="#!libreria\playlist"> Aggiunto alle tua Playlist</a></div>
+    <div class="snackbarMusic" ng-show="riproduzione"> <a href="#!player"> Brano in Riproduzione </a></div>
 </div>
 
 

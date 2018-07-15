@@ -7,11 +7,12 @@
 </head>
 <body>
 <div class="listSong">
-    <ul class="" ng-repeat="brani in playlistDef">
-        <li ng-click="loadBrano(brani.codice,playlistDef);setCurrentCoda($index)">
+    <ul class="" ng-repeat="brani in playlistdef">
+        <li ng-click="loadBrano(brani.codice,playlistdef);setCurrentCoda($index);snackRiproduzione()">
             <img  class="imgAlbum" ng-src={{brani.immagine}}>  {{brani.titolo}}  {{brani.artista}}
         </li>
     </ul>
 </div>
+<div class="snackbarMusic" ng-show="riproduzione"> <a href="#!player"> Brano in Riproduzione </a></div>
 </body>
 </html>

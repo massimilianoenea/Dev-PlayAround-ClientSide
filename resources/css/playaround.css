@@ -48,7 +48,7 @@ body {
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #000000d9;
+    background-color: #2a4463;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 40px;
@@ -218,7 +218,7 @@ a:active{
     padding: 20px;
 }
 .mobileHeader{
-    background: #4a4a4a73;
+    background: #2a4463;
 }
 #Search_value{
     background-color: rgba(0,0,0,0);
@@ -469,7 +469,25 @@ i:hover{
 }
 
 /* END modal code */
+.snackbarMusic {
 
+    min-width: 250px; /* Set a default minimum width */
+    margin-left: -125px; /* Divide value of min-width by 2 */
+    background-color: #2EBE21; /* Black background color */
+    color: #fff; /* White text color */
+    text-align: center; /* Centered text */
+    border-radius: 2px; /* Rounded borders */
+    padding: 16px; /* Padding */
+    position: fixed; /* Sit on top of the screen */
+    z-index: 1; /* Add a z-index if needed */
+    left: 50%; /* Center the snackbar */
+    bottom: 8%; /* 30px from the bottom */
+}
+
+.snackbarMusic:hover{
+    color:blue;
+    font-size: larger;
+}
 
 @media screen and (max-width: 1900px) {
     .side{
@@ -490,6 +508,9 @@ i:hover{
     .mobileHeader{
         display: none;
     }
+.snackbarMusic{
+    display: none;
+}
 }
 
 /* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
@@ -521,6 +542,10 @@ i:hover{
     .controller{
         height: auto;
     }
+    .snackbarMusic{
+        display: inline;
+    }
+
 }
 
 @media (max-width: 500px) {

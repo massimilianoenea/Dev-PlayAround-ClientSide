@@ -45,11 +45,11 @@ h2{
     margin: -13px;
     padding: 5px;
 }
-.snackbar {
+.snackbarMusic {
 
     min-width: 250px; /* Set a default minimum width */
     margin-left: -125px; /* Divide value of min-width by 2 */
-    background-color: #fb8200; /* Black background color */
+    background-color: #2EBE21; /* Black background color */
     color: #fff; /* White text color */
     text-align: center; /* Centered text */
     border-radius: 2px; /* Rounded borders */
@@ -57,12 +57,22 @@ h2{
     position: fixed; /* Sit on top of the screen */
     z-index: 1; /* Add a z-index if needed */
     left: 50%; /* Center the snackbar */
-    bottom: 30px; /* 30px from the bottom */
+    bottom: 8%; /* 30px from the bottom */
 }
 
-.snackbar:hover{
+.snackbarMusic:hover{
     color:blue;
     font-size: larger;
+}
+@media screen and (max-width: 1900px){
+    .snackbarMusic{
+        display:none;
+    }
+}
+@media screen and (max-width: 700px){
+    .snackbarMusic{
+        display:inline;
+    }
 }
 
 @media screen and (max-width: 900px){
