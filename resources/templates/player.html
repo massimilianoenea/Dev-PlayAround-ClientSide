@@ -26,13 +26,12 @@
        <!--<progress id="PlayerProgressBar" min='0' max='100' value='0'></progress>-->
         <div class="time_slider">
             <progress id="PlayerProgressBar" min='0' max='100' value='0'></progress>
-            <span id = "PlayermsicTime" class="runing_time">00:00</span>
         </div>
-        <i class="fa fa-volume-off" aria-hidden="true"></i>
         <i class="fa fa-fast-backward" aria-hidden="true" ng-click="prec()"></i>
         <i id = "playerPlayPause" ng-class="AudioInPause ? 'fa fa-play' : 'fa fa-pause'" aria-hidden="true" ng-click="playPause()"></i>
         <i class="fa fa-fast-forward" aria-hidden="true" ng-click="succ()"></i>
         <i class="fa fa-retweet" aria-hidden="true"></i>
+        <i><span id = "PlayermsicTime" class="runing_time">00:00</span></i>
     </div>
 <div class="listAlbum" align="center">
     <ul class="">
