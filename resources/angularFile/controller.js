@@ -522,7 +522,7 @@ angular.module('PlayAround')
 
         $scope.snackRiproduzione=function () {
             $scope.riproduzione=true;
-        }
+        };
 
         var recently = [];
         $scope.addFriend = function () {
@@ -605,13 +605,13 @@ angular.module('PlayAround')
            var parameter={nome_playlist:$scope.namePlaylist};
            $http({
                method:"POST",
-               url : ip.Address+'/require/nuova_playlist',
+               url : ipAddress+'/require/nuova_playlist',
                data: parameter,
                withCredentials: true,
                headers: { 'Content-Type': 'application/json' }
            }).then(function mySuccess(response){
                nomePlaylist = $scope.namePlaylist;//questo la passo sotto per aggiungere i brani
-               $scope.playlist.push({codice:response.data.codice, immagine:ipAddress+img, nome: response.data.nome});
+               $scope.playlist.push({codice:response.data.codice, immagine:response.data.img, nome: response.data.nome});
                $scope.create=false;
                $scope.message=false;
                $scope.apply();
@@ -692,7 +692,7 @@ angular.module('PlayAround')
         $scope.riproduzione=false;
         $scope.snackRiproduzione=function () {
             $scope.riproduzione=true;
-        }
+        };
 
     })
     .controller('tueCanzoniCtrl', function ($scope, Saved,$http,ipAddress){
@@ -701,7 +701,7 @@ angular.module('PlayAround')
         $scope.riproduzione=false;
         $scope.snackRiproduzione=function () {
             $scope.riproduzione=true;
-        }
+        };
         $scope.showBox=function () {
             $scope.visible=true;
         };
@@ -729,7 +729,7 @@ angular.module('PlayAround')
         $scope.riproduzione=false;
         $scope.snackRiproduzione=function () {
             $scope.riproduzione=true;
-        }
+        };
     })
     /**
      * Playlist predefinita
@@ -739,7 +739,7 @@ angular.module('PlayAround')
         $scope.riproduzione=false;
         $scope.snackRiproduzione=function () {
             $scope.riproduzione=true;
-        }
+        };
     })
     /**
      * sezione Amici
@@ -782,16 +782,17 @@ angular.module('PlayAround')
                 $scope.isFollowed = false;
             })
 
-            $scope.riproduzione=false;
-            $scope.snackRiproduzione=function () {
-                $scope.riproduzione=true;
-            }
+
+        };
+        $scope.riproduzione=false;
+        $scope.snackRiproduzione=function () {
+            $scope.riproduzione=true;
         };
 
-        /**
-         * Sezione Generi e mood
-         */
     })
+    /**
+     * sezione mood
+     */
     .controller('moodCtrl', function ($scope, Mood,Genere) {
         var slides = [];
         for (playlist in Mood){
@@ -824,7 +825,7 @@ angular.module('PlayAround')
 
         $scope.snackRiproduzione=function () {
             $scope.riproduzione=true;
-        }
+        };
 
     })
     /**
@@ -844,7 +845,7 @@ angular.module('PlayAround')
         
         $scope.snackRiproduzione=function () {
             $scope.riproduzione=true;
-        }
+        };
     })
     /**
      * Search bar
@@ -1005,6 +1006,6 @@ angular.module('PlayAround')
 
         $scope.snackRiproduzione=function () {
             $scope.riproduzione=true;
-        }
+        };
 
     });
