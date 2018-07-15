@@ -482,7 +482,9 @@ angular.module('PlayAround')
 
 
 
-
+/**
+ * sezione amici online
+ */
 
 
 
@@ -512,7 +514,9 @@ angular.module('PlayAround')
         return [];
     };
 })
-
+/**
+ * Sezione utente generico
+ */
 
     .controller('utenteCtrl', function($scope,$http,User,Ascoltati,Seguiti,$sessionStorage,ipAddress) {
         $scope.utente=User;
@@ -804,6 +808,7 @@ angular.module('PlayAround')
     .controller('homeCtrl', function ($scope, Giornaliera, Recently, AmiciSong,ipAddress) {
        $scope.recently=Recently;
        $scope.musicFriends=AmiciSong;
+       $scope.playlistG=Giornaliera;
 
         var slides = [];
         for (playlist in Giornaliera){
