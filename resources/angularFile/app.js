@@ -86,7 +86,7 @@ angular.module('PlayAround',['ngRoute','ngStorage','angucomplete-alt','ui.carous
 
                     return $http({
                         method: "GET",
-                        url:ipAddress+'require/utente/' + $route.current.params.username,
+                        url:ipAddress+'/require/utente/' + $route.current.params.username,
                         withCredentials: true
                         }).then(function (response){
                             response.data.immagine = ipAddress+response.data.immagine;
@@ -100,7 +100,7 @@ angular.module('PlayAround',['ngRoute','ngStorage','angucomplete-alt','ui.carous
 
                     return $http({
                         method: "GET",
-                        url: ipAddress+'require/ascoltati_recente_utente/'+ $route.current.params.username,
+                        url: ipAddress+'/require/ascoltati_recente_utente/'+ $route.current.params.username,
                         withCredentials: true
                         }).then(function (response){
                             return response.data;
@@ -113,7 +113,7 @@ angular.module('PlayAround',['ngRoute','ngStorage','angucomplete-alt','ui.carous
 
                     return $http({
                         method: "GET",
-                        url: ipAddress+'require/artisti_seguiti/'+ $route.current.params.username,
+                        url: ipAddress+'/require/artisti_seguiti/'+ $route.current.params.username,
                         withCredentials: true
                         }).then(function (response){
                             return response.data;
@@ -138,7 +138,9 @@ angular.module('PlayAround',['ngRoute','ngStorage','angucomplete-alt','ui.carous
                         url: ipAddress+'/require/le_tue_playlist',
                         withCredentials: true
                         }).then(function (response){
-                            response.data.immagine = ipAddress + response.data.immagine;
+                            for(playlist in response.data){
+                                response.data[playlist].immagine = ipAddress + response.data[playlist].immagine;
+                            }
                             return response.data;
                         },function myError(response){
                             return[];

@@ -592,7 +592,6 @@ angular.module('PlayAround')
 
     .controller('playlistCtrl', function($scope, PersonalPlaylist, $http,ipAddress){
         var nomePlaylist = "";
-        console.log(PersonalPlaylist);
         $scope.playlist=PersonalPlaylist;
         $scope.visible=false;
         $scope.create=true;
