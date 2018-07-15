@@ -766,7 +766,7 @@ angular.module('PlayAround')
         $scope.addArtista = function () {
             $http({
                 method : "POST",
-                url : ipAddress+'require/follow_artista',
+                url : ipAddress+'/require/follow_artista',
                 data: {codartista:Artista.codice},
                 withCredentials: true,
                 headers: { 'Content-Type': 'application/json' }
@@ -783,7 +783,7 @@ angular.module('PlayAround')
         $scope.deleteArtista = function () {
             $http({
                 method : "POST",
-                url : ipAddress+'require/unfollow_artista',
+                url : ipAddress+'/require/unfollow_artista',
                 data: {codartista:Artista.codice},
                 withCredentials: true,
                 headers: { 'Content-Type': 'application/json' }
@@ -807,7 +807,7 @@ angular.module('PlayAround')
             slides.push({nome:Mood[playlist].nome,immagine:Mood[playlist].immagine,codice:Mood[playlist].codice});
         }
         $scope.slides=slides
-      $scope.mood = Mood;
+        $scope.mood = Mood;
 
         var slidesG=[];
         for(playlist in Genere){

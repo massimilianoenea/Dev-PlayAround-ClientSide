@@ -8,6 +8,7 @@ var app = angular.module('PlayAroundLogin',['PlayAroundConf','ngStorage']);
 
     app.controller('login',function($scope, $http,ipAddress,codeManager,$sessionStorage){
         $sessionStorage.empty();
+        
         $scope.try_login = function(){
             $scope.message = false;
             var parameter = {email:$scope.email,password:$scope.password};
