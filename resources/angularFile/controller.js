@@ -608,7 +608,7 @@ angular.module('PlayAround')
                headers: { 'Content-Type': 'application/json' }
            }).then(function mySuccess(response){
                nomePlaylist = $scope.namePlaylist;//questo la passo sotto per aggiungere i brani
-               $scope.playlist.push({codice:response.data.codice, immagine:ipAddress+"/image/playlist/default/"+response.data.codiceImg+".png", nome: response.data.nome});
+               $scope.playlist.push({codice:response.data.codice, immagine:ipAddress+img, nome: response.data.nome});
                $scope.create=false;
                $scope.message=false;
                $scope.apply();
