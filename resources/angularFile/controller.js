@@ -149,7 +149,7 @@ angular.module('PlayAround')
 
     $scope.loadBrano = function(codbrano,listOfSong,reset){
         if(audio.src) audioStop();
-        if($sessionStorage.modalAppear === true) {
+        if($sessionStorage.deviceSetted !== undefined && $sessionStorage.deviceSetted === true) {
             socket.emit('stream', {username: $sessionStorage.UserLogged.username,codbrano:codbrano});
             if(reset !== true || reset !== false) reset = true;
             genereteListOfSong(listOfSong,reset);
@@ -201,51 +201,61 @@ angular.module('PlayAround')
     });
 
     ss(socket.getsocket()).on('audio-stream', function (stream, data) {
-        //var parts = [];
-        var buffer;
-        var mime = 'audio/'+data.mime;
-        var mediaSource = new MediaSource();
-
-        if(MediaSource.isTypeSupported(mime)){
-            console.log("Supported");
+        if(data.duration === -1){
+            var parts = [];
+            stream.on('data', function(chunk){
+                parts.push(chunk);
+            });
+            stream.on('end', function () {
+                audio.src = (window.URL || window.webkitURL).createObjectURL(new Blob(parts));
+                audio.play();
+            });
         }else{
-            console.log("NotSupported");
-            return;
-        }
+            var buffer;
+            var mime = 'audio/'+data.mime;
+            var mediaSource = new MediaSource();
 
-        audio.src = (window.URL || window.webkitURL).createObjectURL(mediaSource);
-        $sessionStorage.inplay = data.duration;
-
-        mediaSource.addEventListener('sourceopen', function (e) {
-            buffer = mediaSource.addSourceBuffer('audio/'+data.mime);
-            buffer.mode = 'sequence';
-            buffer.addEventListener('update',function(e){
-            });
-            buffer.addEventListener('updateend', function (e) {
-                //hack to get safari on mac to start playing, video.currentTime gets stuck on 0
-                if (mediaSource.duration !== Number.POSITIVE_INFINITY && audio.currentTime === 0 && mediaSource.duration > 0) {
-                    audio.currentTime = mediaSource.duration - 1;
-                    mediaSource.duration = Number.POSITIVE_INFINITY;
-                }
-                //audio.play();
-            });
-            playPause.className = 'fa fa-pause';
-        });
-
-        stream.on('data', (chunk) => {
-            //parts.push(chunk);
-            var data = new Uint8Array(chunk);
-            try {
-                buffer.appendBuffer(data);
-            }catch(err){
-
+            if(MediaSource.isTypeSupported(mime)){
+                console.log("Supported");
+            }else{
+                console.log("NotSupported");
+                return;
             }
 
-        });
-        stream.on('end', function () {
-            // audio.src = (window.URL || window.webkitURL).createObjectURL(new Blob(parts));
-            // playPause.className = 'fa fa-pause';
-        });
+            audio.src = (window.URL || window.webkitURL).createObjectURL(mediaSource);
+            $sessionStorage.inplay = data.duration;
+
+            mediaSource.addEventListener('sourceopen', function (e) {
+                buffer = mediaSource.addSourceBuffer('audio/'+data.mime);
+                buffer.mode = 'sequence';
+                buffer.addEventListener('update',function(e){
+                });
+                buffer.addEventListener('updateend', function (e) {
+                    //hack to get safari on mac to start playing, video.currentTime gets stuck on 0
+                    if (mediaSource.duration !== Number.POSITIVE_INFINITY && audio.currentTime === 0 && mediaSource.duration > 0) {
+                        audio.currentTime = mediaSource.duration - 1;
+                        mediaSource.duration = Number.POSITIVE_INFINITY;
+                    }
+                    //audio.play();
+                });
+                playPause.className = 'fa fa-pause';
+            });
+
+            stream.on('data', (chunk) => {
+                //parts.push(chunk);
+                var data = new Uint8Array(chunk);
+                try {
+                    buffer.appendBuffer(data);
+                }catch(err){
+
+                }
+
+            });
+            stream.on('end', function () {
+                // audio.src = (window.URL || window.webkitURL).createObjectURL(new Blob(parts));
+                // playPause.className = 'fa fa-pause';
+            });
+        }
     });
 
     function seek(e) {
@@ -270,6 +280,7 @@ angular.module('PlayAround')
     function updateProgressBar() {
         // Work out how much of the media has played via the duration and currentTime parameters
        if(audio !== undefined) {
+           if($sessionStorage.inplay <= Math.ceil(audio.currentTime)) audioEnd();
            var percentage = Math.floor((100 / $sessionStorage.inplay) * audio.currentTime);
            //LOCAL VERSION
            // Update the progress bar's value
@@ -294,7 +305,6 @@ angular.module('PlayAround')
 
     function audioEnd(){
         if(!$sessionStorage.loop) $sessionStorage.loop=0;
-
             if($sessionStorage.loop === 0){
                 if($sessionStorage.listOfSong.current + 1 >= $sessionStorage.listOfSong.list.length){
                     audioStop();
