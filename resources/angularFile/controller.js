@@ -532,7 +532,11 @@ angular.module('PlayAround')
                 .then(function mySuccess(response) {
                     $scope.isFriend = true;
                     $sessionStorage.socket.emit('getFriend', {username: $sessionStorage.UserLogged.username, email: $sessionStorage.UserLogged.email});
-                })
+                },function myError(response){
+                    if(response.status === 500){
+                        window.location.href = "./login.html";
+                       }
+                });
         };
 
         $scope.deleteFriend = function () {
@@ -554,7 +558,11 @@ angular.module('PlayAround')
                             }
                         }
                     }
-                })
+                },function myError(response){
+                    if(response.status === 500){
+                        window.location.href = "./login.html";
+                       }
+                });
         };
 
         $http({
@@ -563,6 +571,10 @@ angular.module('PlayAround')
         })
             .then(function mySuccess(response) {
                 recently.push.apply(response);
+            },function myError(response){
+                if(response.status === 500){
+                    window.location.href = "./login.html";
+                   }
             });
 
 
@@ -607,11 +619,14 @@ angular.module('PlayAround')
                headers: { 'Content-Type': 'application/json' }
            }).then(function mySuccess(response){
                nomePlaylist = $scope.namePlaylist;//questo la passo sotto per aggiungere i brani
-               $scope.playlist.push({codice:response.data.codice, immagine:ipAddress+img, nome: response.data.nome});
+               $scope.playlist.push({codice:response.data.codice, immagine:ipAddress+response.data.img, nome: response.data.nome});
                $scope.create=false;
                $scope.message=false;
                $scope.apply();
            },function myError(response){
+               if(response.status === 500){
+                window.location.href = "./login.html";
+               }
                $scope.message=true;
                $scope.error = response.data;
            });
@@ -626,6 +641,10 @@ angular.module('PlayAround')
                headers: { 'Content-Type': 'application/json' }
            }).then(function mySucces(response){
                $scope.nomeBrano=selected.title;
+           },function myError(response){
+            if(response.status === 500){
+                window.location.href = "./login.html";
+               }
            });
        };
     })
@@ -665,7 +684,9 @@ angular.module('PlayAround')
             }).then(function mySuccess(response){
                window.location = "#!libreria/playlist"
             },function myError(response){
-
+                if(response.status === 500){
+                    window.location.href = "./login.html";
+                   }
             });
         };
         $scope.addSong=function (selected) {
@@ -681,6 +702,9 @@ angular.module('PlayAround')
                 $scope.playlistUt.push(selected.originalObject);
                 $scope.apply();
             },function myError(response){
+                if(response.status === 500){
+                    window.location.href = "./login.html";
+                   }
                 $scope.nomeBrano= "non è stato possibile caricare "+selected.title;
             });
 
@@ -708,7 +732,9 @@ angular.module('PlayAround')
             }).then(function mySuccess(response){
                 window.location = "#!libreria/leTueCanzoni"
             },function myError(response){
-
+                if(response.status === 500){
+                    window.location.href = "./login.html";
+                   }
             });
         };
     })
@@ -747,7 +773,11 @@ angular.module('PlayAround')
             })
                 .then(function mySuccess(response) {
                     $scope.isFollowed = true;
-                })
+                }, function myError(response){
+                    if(response.status === 500){
+                        window.location.href = "./login.html";
+                       }
+                });
         };
 
         $scope.deleteArtista = function () {
@@ -760,7 +790,11 @@ angular.module('PlayAround')
             })
             .then(function mySuccess(response) {
                 $scope.isFollowed = false;
-            })
+            },function myError(respnse){
+                if(response.status === 500){
+                    window.location.href = "./login.html";
+                }
+            });
         };
 
         /**
@@ -910,6 +944,10 @@ angular.module('PlayAround')
                 headers: { 'Content-Type': 'application/json' }
             }).then(function mySuccess(response){
                 $scope.notifica=true;/*attivo la snackbar di notifica*/
+            },function myError(response){
+                if(response.status === 500){
+                    window.location.href = "./login.html";
+                   }
             });
         }
     })
@@ -952,6 +990,10 @@ angular.module('PlayAround')
             }).then(function mySuccess($scope) {
                 $scope.codice=-1;//disattivo dropdown
                 $scope.notifica2=true; /*attivo la snackbar di notifica*/
+            },function myError(response){
+                if(response.status === 500){
+                    window.location.href = "./login.html";
+                   }
             });
         };
 
@@ -965,6 +1007,10 @@ angular.module('PlayAround')
                 headers: { 'Content-Type': 'application/json' }
             }).then(function mySuccess(response) {
                 $scope.notifica=true;/*attivo la snackbar di notifica*/
+            },function myError(response){
+                if(response.status === 500){
+                    window.location.href = "./login.html";
+                   }
             });
         }
 
