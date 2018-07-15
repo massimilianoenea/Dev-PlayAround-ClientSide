@@ -28,12 +28,7 @@ angular.module('PlayAround')
             window.location.href = './login.html';
         });
     };
-/*
-    $scope.$on('$viewContentLoaded', function(event) {
-        socket.emit('getFriend', {username: $sessionStorage.UserLogged.username, email: $sessionStorage.UserLogged.email});
-        socket.emit('player_room', {username: $sessionStorage.UserLogged.username});
-    });
-*/
+
 
     /**
      *

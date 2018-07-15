@@ -1,10 +1,10 @@
 angular.module('PlayAround')
     .factory('socket', function ($rootScope,ipAddress) {
         var path = ipAddress;
-        var socket = io.connect(path, {'forceNew': true});
+        var socket = io.connect(path, {forceNew: true,reconnection:true});
     return {
         runSocket: function(){
-            socket = io.connect(path, {'forceNew': true});
+            socket = io.connect(path, {forceNew: true,reconnection:true});
             return socket.connected;
         },
         isConnected: function(){
