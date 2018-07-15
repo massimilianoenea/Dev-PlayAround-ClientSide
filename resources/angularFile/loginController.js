@@ -1,4 +1,4 @@
-var app = angular.module('PlayAroundLogin',['PlayAroundConf','ngStorage']);
+var app = angular.module('PlayAroundLogin',['PlayAroundConf']);
 
     app.config(function($httpProvider) {
         $httpProvider.defaults.useXDomain = true;
@@ -6,8 +6,7 @@ var app = angular.module('PlayAroundLogin',['PlayAroundConf','ngStorage']);
         $httpProvider.defaults.withCredentials = true;
     });
 
-    app.controller('login',function($scope, $http,ipAddress,codeManager,$sessionStorage){
-        $sessionStorage.empty();
+    app.controller('login',function($scope, $http,ipAddress,codeManager){
         
         $scope.try_login = function(){
             $scope.message = false;
